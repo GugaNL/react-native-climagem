@@ -113,6 +113,10 @@ class Exams extends React.Component {
 
     }
 
+    clearSearch() {
+        this.props.addArrayExams(mockExams)
+    }
+
 
     render() {
         const week = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
@@ -126,9 +130,14 @@ class Exams extends React.Component {
                     <CalendarPicker weekdays={week} months={months}
                         nextTitle='Próximo' minDate={minDate} allowRangeSelection={true}
                         onDateChange={(date, type) => this.onDateChange(date, type)} />
-                    <TouchableOpacity style={styles.buttonSearch} onPress={() => this.calculateInterval()}>
-                        <Text style={styles.textButtomSearch}>Pesquisar</Text>
-                    </TouchableOpacity>
+                    <View style={styles.containerSearch}>
+                        <TouchableOpacity style={styles.buttonSearch} onPress={() => this.calculateInterval()}>
+                            <Text style={styles.textButtomSearch}>Pesquisar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.buttomClear} onPress={() => this.clearSearch()}>
+                            <Icon name='eraser' size={25} style={styles.clearIcon} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
         }
 
@@ -210,7 +219,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#B0E0E6',
         alignItems: 'center',
         justifyContent: 'center',
-        alignSelf: 'center',
         width: 150,
         height: 30,
         borderRadius: 15,
@@ -218,5 +226,25 @@ const styles = StyleSheet.create({
     },
     textButtomSearch: {
         fontWeight: 'bold'
+    },
+    clearIcon: {
+        color: '#5F9EA0'
+    },
+    containerSearch: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttomClear: {
+        backgroundColor: '#B0E0E6',
+        width: 40,
+        height: 30,
+        borderRadius: 15,
+        borderWidth: 0.5,
+        borderColor: '#A9A9A9',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 25,
+        marginLeft: 20,
     }
 })

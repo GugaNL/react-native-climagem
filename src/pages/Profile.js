@@ -8,8 +8,8 @@ export default class Profile extends React.Component {
         return(
             <View style={styles.container}>
                    <Avatar size='xlarge' rounded title='MD' />
-                   <Text>Gustavo Nunes Lucena</Text>
-                   <Text>Clínico geral</Text>
+                   <Text>Paulo Lucena</Text>
+                   <Text>Mastologista</Text>
             </View>
         )
     }
