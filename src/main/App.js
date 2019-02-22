@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native'
-import   Menu from './Menu'
+import { View } from 'react-native'
+import  Menu from './Menu'
+import {styleApp} from '../layout/Styles'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import reducers from '../reducers/index'
@@ -25,7 +26,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
-        <View style={styles.container}>
+        <View style={styleApp.container}>
           <Menu />
         </View>
       </Provider>
@@ -33,10 +34,3 @@ export default class App extends Component {
   }
 }
 
-
-const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    backgroundColor: '#F0FFFF'
-  }
-})
