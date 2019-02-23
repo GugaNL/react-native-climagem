@@ -27,9 +27,6 @@ export const insertUser = ({ name, email, password }) => {
                 //Alert.alert('Erro no cadastro do usuário: ', error)
             })
     }
-
-
-
 }
 
 

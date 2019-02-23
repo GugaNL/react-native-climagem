@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, ScrollView } from 'react-native'
+import { View, FlatList, ScrollView, TouchableHighlight } from 'react-native'
 import Exam from '../components/Exam'
 import SearchExam from '../components/SearchExam'
 import Calendar from '../components/Calendar'
@@ -17,11 +17,14 @@ class Exams extends React.Component {
         this.props.addBackupArrayExams(mockExams)
     }
 
+    showPatient() {
+        this.props.navigation.navigate('Patient')
+    }
 
     render() {
         let calendar
         if (this.props.showCalendar === true) {
-            calendar = <Calendar/>
+            calendar = <Calendar />
         }
 
         return (
@@ -32,7 +35,9 @@ class Exams extends React.Component {
                     <FlatList data={this.props.arrayExams} keyExtractor={item => `${item.id}`}
                         renderItem={({ item }) => (
                             <View style={{ marginBottom: 25 }}>
-                                <Exam key={item.id} {...item} />
+                                <TouchableHighlight onPress={() => this.showPatient()}>
+                                    <Exam key={item.id} {...item} />
+                                </TouchableHighlight>
                             </View>
                         )}>
                     </FlatList>

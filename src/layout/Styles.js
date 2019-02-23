@@ -147,7 +147,7 @@ export const styleProfile = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#B0E0E6'
     },
 })
 
@@ -212,5 +212,34 @@ export const styleListExams = StyleSheet.create({
         justifyContent: 'center',
         marginTop: 25,
         marginLeft: 20,
+    }
+})
+
+export const stylePatient = StyleSheet.create({
+    containerTitle: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: '#48D1CC'
+    },
+    textPatientTitle: {
+        marginTop: 20,
+        marginLeft: 15,
+        alignItems: 'center',
+    },
+    containerInfoPatient: {
+        width: '100%',
+        height: Dimensions.get('window').width * 3 / 4,
+        marginTop: 15,
+        backgroundColor: '#F5FFFA',
+        borderWidth: 0.5,
+        borderColor: '#C0C0C0',
+    },
+    infoPatient: {
+        margin: 10,
+    },
+    divider: { 
+        backgroundColor: '#C0C0C0', 
+        width: '90%', 
+        alignSelf: 'center'
     }
 })

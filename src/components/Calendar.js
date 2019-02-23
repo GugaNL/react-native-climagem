@@ -56,6 +56,7 @@ class Calendar extends Component {
 
     clearSearch() {
         this.props.addArrayExams(mockExams)
+        this.props.toggleDateSearch(false)
     }
 
 
