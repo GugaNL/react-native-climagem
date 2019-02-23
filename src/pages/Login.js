@@ -1,5 +1,7 @@
 import React from 'react'
 import { View, Text, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
+import { Input } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import {styleLogin} from '../layout/Styles'
 import logo from '../assets/imgs/logo2.png'
 import { connect } from 'react-redux'
@@ -20,12 +22,32 @@ class Login extends React.Component {
         return (
             <View style={styleLogin.container}>
                 <Image source={logo} style={styleLogin.logo} />
-                <TextInput value={this.props.email} style={styleLogin.input} placeholder='Digite seu email'
+
+                <Input underlineColorAndroid='transparent' containerStyle={styleLogin.input2} 
+                inputContainerStyle={{borderBottomWidth: 0}} inputStyle={{marginLeft: 10, color: '#fff'}} 
+                placeholder='Usuário' leftIcon={<Icon name='user' size={24} color='#C0C0C0'/>}
+                placeholderTextColor='#C0C0C0'
+                onChangeText={value => this.props.changeEmail(value)}
+                />
+                
+                <Input secureTextEntry={true} underlineColorAndroid='transparent' containerStyle={styleLogin.input2} 
+                inputContainerStyle={{borderBottomWidth: 0}} inputStyle={{marginLeft: 10}} placeholder='Senha de acesso' 
+                leftIcon={<Icon name='lock' size={24} color='#C0C0C0'/>}
+                placeholderTextColor='#C0C0C0'
+                onChangeText={value => this.props.changePassword(value)}
+                />
+
+  
+                {/* {<TextInput value={this.props.email} style={styleLogin.input} placeholder='Digite seu email'
                     placeholderTextColor='#A0A0A0' keyboardType='email-address'
-                    onChangeText={value => this.props.changeEmail(value)} />
-                <TextInput style={styleLogin.input} placeholder='Digite sua senha'
+                    onChangeText={value => this.props.changeEmail(value)} />} */}
+
+
+                {/* {<TextInput style={styleLogin.input} placeholder='Digite sua senha'
                     placeholderTextColor='#A0A0A0' secureTextEntry={true}
-                    onChangeText={value => this.props.changePassword(value)} />
+                    onChangeText={value => this.props.changePassword(value)} />} */}
+
+
                 <TouchableOpacity style={styleLogin.buttom} onPress={() => this.login()}>
                     <Text style={styleLogin.buttomText}>Entrar</Text>
                 </TouchableOpacity>

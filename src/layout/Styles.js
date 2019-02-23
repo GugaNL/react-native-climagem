@@ -16,14 +16,24 @@ export const styleLogin = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center'
     },
-    input: {
-        height: 40,
+
+    // input: {
+    //     height: 40,
+    //     backgroundColor: 'rgba(225,225,225,0.2)',
+    //     marginBottom: 10,
+    //     padding: 10,
+    //     color: '#fff',
+    //     margin: 20,
+    //     borderRadius: 15,
+    // },
+    input2: {
+        marginHorizontal: 20,
+        marginBottom: 10, 
+        borderRadius: 15, 
+        marginTop: 20,
+        alignSelf: 'center',
+        width: Dimensions.get('window').width * 3 / 4,
         backgroundColor: 'rgba(225,225,225,0.2)',
-        marginBottom: 10,
-        padding: 10,
-        color: '#fff',
-        margin: 20,
-        borderRadius: 15,
     },
     buttom: {
         backgroundColor: '#2980b6',
