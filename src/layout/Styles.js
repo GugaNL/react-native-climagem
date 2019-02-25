@@ -85,10 +85,14 @@ export const styleExam = StyleSheet.create({
         marginTop: 15,
         marginLeft: 15,
     },
+    viewPatientTitleRow: {
+        flexDirection: 'row', 
+        marginTop: 10, 
+        justifyContent: 'space-between'
+    },
     patient: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginTop: 10
     },
     type: {
         fontWeight: 'bold',
