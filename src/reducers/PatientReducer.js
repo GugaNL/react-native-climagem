@@ -1,17 +1,20 @@
 const initialState = {
-    name: '',
-    genre: '',
-    email: '',
-    old: '',
-    phone: '',
-    agreement: '',
-    address: '',
-    observation: '',
-    photo: ''
+    patient: []
+    
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case 'CHANGE_PATIENT': 
+            return{
+                ...state,
+                patient: action.payload
+            }
+        case 'CHANGE_ID_PATIENT':
+            return {
+                ...state,
+                id: action.payload
+            }
         case 'CHANGE_NAME_PATIENT':
             return {
                 ...state,

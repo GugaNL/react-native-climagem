@@ -1,3 +1,10 @@
+export const changeIdPatient = value => {
+    return {
+        type: 'CHANGE_ID_PATIENT',
+        payload: value
+    }
+}
+
 export const changeNamePatient = value => {
     return{
     type: 'CHANGE_NAME_PATIENT',
@@ -57,6 +64,13 @@ export const changeObservationPatient = value => {
 export const changePhotoPatient = value => {
     return {
         type: 'CHANGE_PHOTO_PATIENT',
+        payload: value
+    }
+}
+
+export const changePatient = value => {
+    return {
+        type: 'CHANGE_PATIENT',
         payload: value
     }
 }

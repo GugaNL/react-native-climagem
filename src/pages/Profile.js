@@ -6,6 +6,7 @@ import ImagePicker from 'react-native-image-picker'
 import { connect } from 'react-redux'
 import { changeProfilePhoto } from '../actions/ProfileAction'
 import profileIcon from '../assets/imgs/doctor-icon.png'
+import { Icon } from 'react-native-elements'
 
 
 const options = {
@@ -34,13 +35,17 @@ class Profile extends React.Component {
         Alert.alert('Foto carregada com sucesso ', this.props.photo)
     }
 
+    loginPage() {
+        this.props.navigation.navigate('Login')
+    }
+
     render() {
         return (
             <View style={styleProfile.container}>
 
-                <Avatar size='xlarge' rounded title='MD' showEditButton 
-                source={this.props.photo.uri == '' ? profileIcon : this.props.photo}
-                onEditPress={() => this.pickImage()} 
+                <Avatar size='xlarge' rounded title='MD' showEditButton
+                    source={this.props.photo.uri == '' ? profileIcon : this.props.photo}
+                    onEditPress={() => this.pickImage()}
                 />
                 <Text style={{ marginTop: 15, fontWeight: 'bold' }}>Paulo Lucena</Text>
                 <Text>Mastologista</Text>
@@ -59,6 +64,15 @@ class Profile extends React.Component {
                         <Badge status="error" value={1} />
                         <Text style={{ marginLeft: 10 }}>Exames cancelados</Text>
                     </View>
+
+                    <TouchableOpacity onPress={() => {this.loginPage()}}>
+                        <View style={{ marginTop: 30, alignItems: 'center' }}>
+                            <Icon type='ionicon' size={50} name='ios-log-out' iconStyle={{ alignSelf: 'center', color: '#6495ED' }} />
+                            <Text style={{ color: '#6495ED' }}>Sair</Text>
+                        </View>
+                    </TouchableOpacity>
+
+
 
                 </View>
             </View>

@@ -8,18 +8,28 @@ import Exams from '../pages/Exams'
 import Login from '../pages/Login'
 import NewUser from '../pages/NewUser'
 import Patient from '../pages/Patient'
+import AddExam from '../pages/AddExam'
 
 
 
 const Menus = {
     Profile: {
-        name: 'Profile',
+        name: 'Perfil',
         screen: Profile,
         navigationOptions: {
             title: 'Profile',
             tabBarIcon: ({ tintColor }) =>
                 <Icon name='user' size={30} color={tintColor} />
         }
+    },
+    AddExam: {
+       name: 'Consulta',
+       screen: AddExam,
+       navigationOptions: {
+           title: '',
+           tabBarIcon: ({ tintColor }) => 
+           <Icon name='plus-circle' size={60} color='#FF4500' style={{position: 'absolute',marginBottom: 25}}/>
+       }
     },
     Consults: {
         name: 'Exams',

@@ -242,7 +242,17 @@ export const stylePatient = StyleSheet.create({
     },
     containerInfoPatient: {
         width: '100%',
-        height: Dimensions.get('window').width * 3 / 4,
+        //height: Dimensions.get('window').width * 3 / 4,
+        height: 230,
+        marginTop: 15,
+        backgroundColor: '#F5FFFA',
+        borderWidth: 0.5,
+        borderColor: '#C0C0C0',
+    },
+    containerInfoExam: {
+        width: '100%',
+        //height: Dimensions.get('window').width * 3 / 4,
+        height: 290,
         marginTop: 15,
         backgroundColor: '#F5FFFA',
         borderWidth: 0.5,
@@ -256,4 +266,49 @@ export const stylePatient = StyleSheet.create({
         width: '90%', 
         alignSelf: 'center'
     }
+})
+
+export const styleAddExam = StyleSheet.create({
+    containerMain: {
+        flex: 1, 
+        justifyContent: 'center'
+    },
+    containerRow: {
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        marginBottom: 25, 
+        marginHorizontal: 20
+    },
+    containerAgreement: {
+        flexDirection: 'row',
+        marginBottom: 25,
+    },
+    buttomConfirm: {
+        backgroundColor: '#2980b6',
+        margin: 30,
+        height: 45,
+        width: Dimensions.get('window').width * 2 / 4,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        borderRadius: 20
+    },
+    buttomText: {
+        alignSelf: 'center',
+        fontWeight: 'bold',
+        color: '#FFFFFF'
+    },
+    buttomCancel: {
+        backgroundColor: '#FF4500',
+        margin: 30,
+        height: 45,
+        width: Dimensions.get('window').width * 2 / 4,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        borderRadius: 20
+    },
+    overlay: {
+        height: Dimensions.get('window').height * 2 / 4,
+        width: '95%'
+    }
+
 })

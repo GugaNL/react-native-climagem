@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import { stylePatient } from '../layout/Styles'
-import { Avatar, Divider, Card, Badge } from 'react-native-elements'
+import { Avatar, Divider, Card, Button, Icon } from 'react-native-elements'
 import { connect } from 'react-redux'
 import {
   changeNamePatient, changeGenrePatient, changeEmailPatient, changeOldPatient, changePhonePatient,
@@ -12,6 +12,21 @@ import {
 
 class Patient extends Component {
 
+
+  confirmExam() {
+     Alert.alert(
+       'Aviso',
+       'Deseja confirmar a solicitação do exame?',
+       [
+         {
+          text: 'Cancelar',
+          //onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+         },
+         {text: 'Sim', onPress: () => console.log('OK Pressed')},
+       ]
+     )
+  }
 
   render() {
     return (
@@ -38,7 +53,7 @@ class Patient extends Component {
           <Text style={stylePatient.infoPatient}>Endereço </Text>
         </Card>
 
-        <Card containerStyle={stylePatient.containerInfoPatient}>
+        <Card containerStyle={stylePatient.containerInfoExam}>
           <Text style={{ margin: 10, marginBottom: 20, fontSize: 12 }}>Informações do Exame</Text>
           <Text style={stylePatient.infoPatient}>Tipo </Text>
           <Divider style={stylePatient.divider} />
@@ -50,9 +65,20 @@ class Patient extends Component {
           <Divider style={stylePatient.divider} />
           <Text style={stylePatient.infoPatient}>Data Marcada </Text>
           <Text style={stylePatient.infoPatient}>Observação </Text>
-          <Divider style={stylePatient.divider} />
         </Card>
 
+        <Button buttonStyle={{ marginTop: 15 }} titleStyle={{ marginLeft: 7 }}
+          icon={
+            <Icon
+              type='ionicon'
+              name='ios-checkmark-circle'
+              size={18}
+              color="#32CD32"
+            />
+          }
+          title="Confirmar"
+          onPress={() => this.confirmExam()}
+        />
       </View>
 
     )

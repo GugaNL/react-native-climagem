@@ -15,7 +15,7 @@ export const changeName = value => ({
     payload: value
 })
 
-export const insertUser = ({ name, email, password }) => {
+export const insertUser = ({ name,  email, password }) => {
 
     return dispatch => {
         firebase.auth().createUserWithEmailAndPassword(email, password)

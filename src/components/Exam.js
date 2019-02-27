@@ -8,9 +8,6 @@ import { connect } from 'react-redux'
 
 class Exam extends React.Component {
 
-    //'ios-remove-circle-outline'
-
-
     render() {
 
         var statusIcon = ''
