@@ -7,7 +7,7 @@ import moment from "moment"
 import { connect } from 'react-redux'
 import { toggleDateSearch, addArrayExams, changeDateBegin, changeDateEnd, addBackupArrayExams } from '../actions/ExamsAction'
 import { changeDateExam } from '../actions/CalendarAction'
-import { toggleOverlay } from '../actions/ExamAction'
+import { toggleOverlay, changeExam } from '../actions/ExamAction'
 import { mockExams } from '../utils/ListUsersMock'
 
 
@@ -21,6 +21,7 @@ class Calendar extends Component {
         var dateConvert = moment(date).format("DD-MM-YYYY")
         if (this.props.showButtonClear === false) {
             this.props.changeDateExam(dateConvert)
+            this.props.changeExam(dateConvert, 'date')
         }
         if (type === 'START_DATE') {
             if (this.props.dateSearchEnd != null) {
@@ -108,11 +109,12 @@ const mapStateToProps = state => (
         dateSearchBegin: state.ExamsReducer.dateSearchBegin,
         dateSearchEnd: state.ExamsReducer.dateSearchEnd,
         showOverlay: state.ExamReducer.showOverlay,
-        dateExam: state.CalendarReducer.dateExam
+        dateExam: state.CalendarReducer.dateExam,
+        exam: state.ExamReducer.exam
     }
 )
 
 export default connect(mapStateToProps, {
     toggleDateSearch, addArrayExams, addBackupArrayExams, changeDateBegin,
-    changeDateEnd, toggleOverlay, changeDateExam
+    changeDateEnd, toggleOverlay, changeExam, changeDateExam
 })(Calendar)

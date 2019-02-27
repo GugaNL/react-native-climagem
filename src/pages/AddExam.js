@@ -12,11 +12,16 @@ import {changeDateExam} from '../actions/CalendarAction'
 class AddExam extends Component {
 
     _addExam() {
-        console.log('props: ', this.props)
+        console.log('props: ', this.props.exam)
     }
 
     _toggleShowAgreement() {
-        this.props.showAgreementName === true ? this.props.toggleShowAgreement(false) : this.props.toggleShowAgreement(true)
+        if(this.props.showAgreementName === true) {
+            this.props.toggleShowAgreement(false)
+        }else{
+            this.props.toggleShowAgreement(true)
+            this.props.changeExam('', 'price')
+        }
     }
 
     _toggleOverlay() {
@@ -45,7 +50,7 @@ class AddExam extends Component {
         } else {
             price = <View style={styleAddExam.containerRow}>
                 <Text>Valor</Text>
-                <Text style={{ marginLeft: 20 }}>120,00 R$</Text>
+                <Text style={{ marginLeft: 20 }}>{this.props.exam.price} R$</Text>
             </View>
         }
 
@@ -59,7 +64,7 @@ class AddExam extends Component {
         
         let dateField
         if(this.props.dateExam != null){
-            dateField = <Text style={{marginLeft: 20}}>{this.props.dateExam}</Text>
+            dateField = <Text style={{marginLeft: 20}} onPress={() => this._toggleOverlay()} >{this.props.dateExam}</Text>
         } else {
             dateField = <Text style={{marginLeft: 20}} onPress={() => this._toggleOverlay()}>Escolha a data aqui</Text>
         }
@@ -71,8 +76,9 @@ class AddExam extends Component {
                 <View style={styleAddExam.containerRow}>
                     <Text>Tipo</Text>
                     <Dropdown label='Tipo de Exame' data={items}
-                        containerStyle={{ width: 200, marginBottom: 16, marginLeft: 20 }}
-                        onChangeText={(text) => this.props.changeExam(text, 'type')} />
+                        containerStyle={{ width: 170, marginBottom: 16, marginLeft: 20 }}
+                        onChangeText={(text) => this.props.changeExam(text, 'type')}
+                        value={this.props.exam.type} />
                 </View>
 
                 <View style={styleAddExam.containerRow}>

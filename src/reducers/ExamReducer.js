@@ -3,7 +3,7 @@ const initialState = {
         type: '',
         date: '',
         agreement: '',
-        price: '',
+        price: 130,
         obs: ''
     },
     showAgreementName: false,
