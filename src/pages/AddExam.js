@@ -10,6 +10,14 @@ import {toggleRange} from '../actions/CalendarAction'
 
 class AddExam extends Component {
 
+    componentWillMount() {
+        this.props.toggleRange(false)
+    }
+
+    componentWillUpdate() {
+        this.props.toggleRange(false)
+    }
+
     _addExam() {
         console.log('props: ', this.props)
     }
@@ -49,10 +57,9 @@ class AddExam extends Component {
         }
 
         if (this.props.showOverlay === true) {
-            this.props.toggleRange(false)
             return (
                 <Overlay overlayStyle={styleAddExam.overlay} isVisible onBackdropPress={() => this.props.toggleOverlay(false)}>
-                    <Calendar />
+                    <Calendar textButton='Confirmar' rangeValue={false} showButtonClear={false} />
                 </Overlay>
             )
         }

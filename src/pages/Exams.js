@@ -8,7 +8,6 @@ import { mockExams, mockPatients } from '../utils/ListUsersMock'
 import { connect } from 'react-redux'
 import { toggleDateSearch, addArrayExams, changeQuerySearch, addBackupArrayExams } from '../actions/ExamsAction'
 import { changePatient } from '../actions/PatientAction'
-import {toggleRange} from '../actions/CalendarAction'
 
 
 
@@ -18,7 +17,6 @@ class Exams extends React.Component {
         this.props.addArrayExams(mockExams)
         this.props.addBackupArrayExams(mockExams) //alterar para requisiçao de api do banco
         this.props.changePatient(mockPatients) //alterar para requisiçao de api do banco
-        this.props.toggleRange(true)
     }
 
     //id, name, genre, email, old, phone, agreement, address, obs, photo
@@ -31,7 +29,7 @@ class Exams extends React.Component {
     render() {
         let calendar
         if (this.props.showCalendar === true) {
-            calendar = <Calendar />
+            calendar = <Calendar textButton='Pesquisar' rangeValue={true} showButtonClear={true} />
         }
 
         return (
@@ -61,9 +59,8 @@ const mapStateToProps = state => (
         arrayBackupExams: state.ExamsReducer.arrayBackupExams,
         querySearch: state.ExamsReducer.querySearch,
         patient: state.PatientReducer.patient,
-        showRange: state.CalendarReducer.showRange
     }
 )
 
 
-export default connect(mapStateToProps, { toggleDateSearch, addArrayExams, addBackupArrayExams, changeQuerySearch, changePatient, toggleRange })(Exams)
+export default connect(mapStateToProps, { toggleDateSearch, addArrayExams, addBackupArrayExams, changeQuerySearch, changePatient })(Exams)

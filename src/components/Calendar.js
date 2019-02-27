@@ -6,11 +6,14 @@ import CalendarPicker from 'react-native-calendar-picker'
 import moment from "moment"
 import { connect } from 'react-redux'
 import { toggleDateSearch, addArrayExams, changeDateBegin, changeDateEnd, addBackupArrayExams } from '../actions/ExamsAction'
-import {toggleRange} from '../actions/CalendarAction'
 import { mockExams } from '../utils/ListUsersMock'
 
 
 class Calendar extends Component {
+
+    constructor(props) {
+        super(props)
+    }
 
     onDateChange(date, type) {
         var dateConvert = moment(date).format("DD-MM-YYYY")
@@ -52,7 +55,6 @@ class Calendar extends Component {
                 }
                 this.props.addArrayExams(arraySearch)
             }
-
     }
 
     clearSearch() {
@@ -67,18 +69,23 @@ class Calendar extends Component {
         const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
         const minDate = new Date()
 
+        let buttonClear
+        if (this.props.showButtonClear === true) {
+            buttonClear = <TouchableOpacity style={styleListExams.buttomClear} onPress={() => this.clearSearch()}>
+                <Icon name='eraser' size={25} style={styleListExams.clearIcon} />
+            </TouchableOpacity>
+        }
+
         return (
             <View style={styleListExams.calendar}>
                 <CalendarPicker weekdays={week} months={months}
-                    nextTitle='Próximo' minDate={minDate} allowRangeSelection={this.props.showRange}
+                    nextTitle='Próximo' minDate={minDate} allowRangeSelection={this.props.rangeValue}
                     onDateChange={(date, type) => this.onDateChange(date, type)} />
                 <View style={styleListExams.containerSearch}>
                     <TouchableOpacity style={styleListExams.buttonSearch} onPress={() => this.calculateInterval()}>
-                        <Text style={styleListExams.textButtomSearch}>Pesquisar</Text>
+                        <Text style={styleListExams.textButtomSearch}>{this.props.textButton}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styleListExams.buttomClear} onPress={() => this.clearSearch()}>
-                        <Icon name='eraser' size={25} style={styleListExams.clearIcon} />
-                    </TouchableOpacity>
+                    {buttonClear}
                 </View>
             </View>
         )
@@ -92,8 +99,7 @@ const mapStateToProps = state => (
         arrayBackupExams: state.ExamsReducer.arrayBackupExams,
         dateSearchBegin: state.ExamsReducer.dateSearchBegin,
         dateSearchEnd: state.ExamsReducer.dateSearchEnd,
-        showRange: state.CalendarReducer.showRange
     }
 )
 
-export default connect(mapStateToProps, { toggleDateSearch, addArrayExams, addBackupArrayExams, changeDateBegin, changeDateEnd, toggleRange })(Calendar)
+export default connect(mapStateToProps, { toggleDateSearch, addArrayExams, addBackupArrayExams, changeDateBegin, changeDateEnd })(Calendar)
