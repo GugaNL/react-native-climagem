@@ -6,17 +6,10 @@ import { styleAddExam } from '../layout/Styles'
 import Calendar from '../components/Calendar'
 import { connect } from 'react-redux'
 import { addExam, changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay } from '../actions/ExamAction'
-import {toggleRange} from '../actions/CalendarAction'
+import {changeDateExam} from '../actions/CalendarAction'
+
 
 class AddExam extends Component {
-
-    componentWillMount() {
-        this.props.toggleRange(false)
-    }
-
-    componentWillUpdate() {
-        this.props.toggleRange(false)
-    }
 
     _addExam() {
         console.log('props: ', this.props)
@@ -63,7 +56,13 @@ class AddExam extends Component {
                 </Overlay>
             )
         }
-
+        
+        let dateField
+        if(this.props.dateExam != null){
+            dateField = <Text style={{marginLeft: 20}}>{this.props.dateExam}</Text>
+        } else {
+            dateField = <Text style={{marginLeft: 20}} onPress={() => this._toggleOverlay()}>Escolha a data aqui</Text>
+        }
 
 
         return (
@@ -78,7 +77,7 @@ class AddExam extends Component {
 
                 <View style={styleAddExam.containerRow}>
                     <Text>Data</Text>
-                    <Text style={{marginLeft: 20}} onPress={() => this._toggleOverlay()}>Escolha a data aqui</Text>
+                    {dateField}
                 </View>
 
                 <View style={styleAddExam.containerAgreement}>
@@ -112,7 +111,7 @@ const mapStateToProps = state => ({
     showAgreementName: state.ExamReducer.showAgreementName,
     showCalendarExam: state.ExamReducer.showCalendarExam,
     showOverlay: state.ExamReducer.showOverlay,
-    showRange: state.CalendarReducer.showRange
+    dateExam: state.CalendarReducer.dateExam
 })
 
-export default connect(mapStateToProps, { addExam, changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay, toggleRange })(AddExam)
+export default connect(mapStateToProps, { addExam, changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay, changeDateExam })(AddExam)

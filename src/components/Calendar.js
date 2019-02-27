@@ -6,6 +6,8 @@ import CalendarPicker from 'react-native-calendar-picker'
 import moment from "moment"
 import { connect } from 'react-redux'
 import { toggleDateSearch, addArrayExams, changeDateBegin, changeDateEnd, addBackupArrayExams } from '../actions/ExamsAction'
+import { changeDateExam } from '../actions/CalendarAction'
+import { toggleOverlay } from '../actions/ExamAction'
 import { mockExams } from '../utils/ListUsersMock'
 
 
@@ -17,44 +19,50 @@ class Calendar extends Component {
 
     onDateChange(date, type) {
         var dateConvert = moment(date).format("DD-MM-YYYY")
+        if (this.props.showButtonClear === false) {
+            this.props.changeDateExam(dateConvert)
+        }
         if (type === 'START_DATE') {
             if (this.props.dateSearchEnd != null) {
                 this.props.changeDateEnd(null)
             }
             this.props.changeDateBegin(dateConvert)
-            //    console.log('Resultados: ', this.props.dateSearchBegin, this.props.dateSearchEnd)
         } else {
             this.props.changeDateEnd(dateConvert)
         }
-        // type === 'START_DATE' ? this.props.changeDateBegin(dateConvert) : this.props.changeDateEnd(dateConvert)
+
     }
 
     calculateInterval() {
-        var { arrayBackupExams } = this.props
-        var arraySearch = []
-        var dateExam = null
-        var checkValue
-        if (this.props.dateSearchBegin == null && this.props.dateSearchEnd == null) {
-            Alert.alert('Insira um período no calendário')
-        } else
-            if (this.props.dateSearchBegin != null && this.props.dateSearchEnd == null) {
-                var begin = moment(this.props.dateSearchBegin, 'DD-MM-YYYY')
-                for (let i = 0; i < arrayBackupExams.length; i++) {
-                    dateExam = moment(arrayBackupExams[i].date, 'DD-MM-YYYY')
-                    checkValue = moment(dateExam).isSame(begin)
-                    if (checkValue) arraySearch.push(arrayBackupExams[i])
+        if (this.props.showButtonClear === false) {
+            this.props.toggleOverlay(false)
+        } else {
+            var { arrayBackupExams } = this.props
+            var arraySearch = []
+            var dateExam = null
+            var checkValue
+            if (this.props.dateSearchBegin == null && this.props.dateSearchEnd == null) {
+                Alert.alert('Insira um período no calendário')
+            } else
+                if (this.props.dateSearchBegin != null && this.props.dateSearchEnd == null) {
+                    var begin = moment(this.props.dateSearchBegin, 'DD-MM-YYYY')
+                    for (let i = 0; i < arrayBackupExams.length; i++) {
+                        dateExam = moment(arrayBackupExams[i].date, 'DD-MM-YYYY')
+                        checkValue = moment(dateExam).isSame(begin)
+                        if (checkValue) arraySearch.push(arrayBackupExams[i])
+                    }
+                    this.props.addArrayExams(arraySearch)
+                } else {
+                    var begin = moment(this.props.dateSearchBegin, 'DD-MM-YYYY')
+                    var end = moment(this.props.dateSearchEnd, 'DD-MM-YYYY')
+                    for (let i = 0; i < arrayBackupExams.length; i++) {
+                        dateExam = moment(arrayBackupExams[i].date, 'DD-MM-YYYY')
+                        checkValue = moment(dateExam).isBetween(begin, end)
+                        if (checkValue) arraySearch.push(arrayBackupExams[i])
+                    }
+                    this.props.addArrayExams(arraySearch)
                 }
-                this.props.addArrayExams(arraySearch)
-            } else {
-                var begin = moment(this.props.dateSearchBegin, 'DD-MM-YYYY')
-                var end = moment(this.props.dateSearchEnd, 'DD-MM-YYYY')
-                for (let i = 0; i < arrayBackupExams.length; i++) {
-                    dateExam = moment(arrayBackupExams[i].date, 'DD-MM-YYYY')
-                    checkValue = moment(dateExam).isBetween(begin, end)
-                    if (checkValue) arraySearch.push(arrayBackupExams[i])
-                }
-                this.props.addArrayExams(arraySearch)
-            }
+        }
     }
 
     clearSearch() {
@@ -99,7 +107,12 @@ const mapStateToProps = state => (
         arrayBackupExams: state.ExamsReducer.arrayBackupExams,
         dateSearchBegin: state.ExamsReducer.dateSearchBegin,
         dateSearchEnd: state.ExamsReducer.dateSearchEnd,
+        showOverlay: state.ExamReducer.showOverlay,
+        dateExam: state.CalendarReducer.dateExam
     }
 )
 
-export default connect(mapStateToProps, { toggleDateSearch, addArrayExams, addBackupArrayExams, changeDateBegin, changeDateEnd })(Calendar)
+export default connect(mapStateToProps, {
+    toggleDateSearch, addArrayExams, addBackupArrayExams, changeDateBegin,
+    changeDateEnd, toggleOverlay, changeDateExam
+})(Calendar)

@@ -1,14 +1,14 @@
 const initialState = {
-    showRange: false
+    dateExam: null
 }
 
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'TOGGLE_RANGE':
+        case 'CHANGE_DATE_EXAM':
             return {
                 ...state,
-                showRange: action.payload
+                dateExam: action.payload
             }
     
         default:

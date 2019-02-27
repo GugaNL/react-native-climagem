@@ -1,6 +1,6 @@
-export const toggleRange = value => {
+export const changeDateExam = value => {
     return {
-        type: 'TOGGLE_RANGE',
+        type: 'CHANGE_DATE_EXAM',
         payload: value
     }
 }
