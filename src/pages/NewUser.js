@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
 import { Avatar } from 'react-native-elements'
 import { connect } from 'react-redux'
-import { changeEmail, changePassword, changeName, insertUser } from '../actions/AuthAction'
+import { changeEmail, changePassword, changeName, insertUser } from '../store/actions/AuthAction'
 import { styleNewUser } from '../layout/Styles'
 
 

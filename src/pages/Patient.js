@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import {
   changeNamePatient, changeGenrePatient, changeEmailPatient, changeOldPatient, changePhonePatient,
   changeAgreementPatient, changeAddressPatient, changeObservationPatient, changePhotoPatient
-} from '../actions/PatientAction'
+} from '../store/actions/PatientAction'
 
 
 

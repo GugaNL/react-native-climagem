@@ -5,14 +5,15 @@ import { Dropdown } from 'react-native-material-dropdown'
 import { styleAddExam } from '../layout/Styles'
 import Calendar from '../components/Calendar'
 import { connect } from 'react-redux'
-import { addExam, changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay } from '../actions/ExamAction'
-import {changeDateExam} from '../actions/CalendarAction'
+import { addExam, changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay } from '../store/actions/ExamAction'
+import {changeDateExam} from '../store/actions/CalendarAction'
 
 
 class AddExam extends Component {
 
     _addExam() {
-        console.log('props: ', this.props.exam)
+        //console.log('props: ', this.props.exam)
+        this.props.addExam(this.props.exam)
     }
 
     _toggleShowAgreement() {

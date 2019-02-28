@@ -15,7 +15,7 @@ export const toggleShowAgreement = value => {
 }
 
 export const toggleShowCalendarExam = value => {
-    return{
+    return {
         type: 'TOGGLE_CALENDAR_EXAM',
         payload: value
     }
@@ -28,21 +28,17 @@ export const toggleOverlay = value => {
     }
 }
 
-export const addExam = ({ type, patient, phone, schedule, date, status, agreement, registration, price, obs }) => {
+export const addExam = (exam) => {
     return dispatch => {
-        const id = uuid()
-        firebase.database().ref('paciente/' + id)
-            .set({
-                type: type,
-                patient: patient,
-                phone: phone,
-                schedule: schedule,
-                date: date,
-                status: status,
-                agreement: agreement,
-                registration: registration,
-                price: price,
-                obs: obs
+        //const { currentUser } = firebase.auth()
+
+        firebase.database().ref('/exame/')
+            .push({
+                type: exam.type,
+                date: exam.date,
+                agreement: exam.agreement,
+                price: exam.price,
+                obs: exam.obs
             })
             .then(() => {
                 sucessAddExam(dispatch)

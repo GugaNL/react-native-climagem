@@ -6,8 +6,8 @@ import Calendar from '../components/Calendar'
 import { styleListExams } from '../layout/Styles'
 import { mockExams, mockPatients } from '../utils/ListUsersMock'
 import { connect } from 'react-redux'
-import { toggleDateSearch, addArrayExams, changeQuerySearch, addBackupArrayExams } from '../actions/ExamsAction'
-import { changePatient } from '../actions/PatientAction'
+import { toggleDateSearch, addArrayExams, changeQuerySearch, addBackupArrayExams } from '../store/actions/ExamsAction'
+import { changePatient } from '../store/actions/PatientAction'
 
 
 

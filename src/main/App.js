@@ -4,7 +4,7 @@ import  Menu from './Menu'
 import {styleApp} from '../layout/Styles'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
-import reducers from '../reducers/index'
+import reducers from '../store/reducers/index'
 import firebase from 'firebase'
 import ReduxThunk from 'redux-thunk'
 

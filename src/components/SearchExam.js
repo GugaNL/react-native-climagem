@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { SearchBar } from 'react-native-elements'
 import { styleListExams } from '../layout/Styles'
 import { connect } from 'react-redux'
-import { toggleDateSearch, addArrayExams, changeQuerySearch, addBackupArrayExams } from '../actions/ExamsAction'
+import { toggleDateSearch, addArrayExams, changeQuerySearch, addBackupArrayExams } from '../store/actions/ExamsAction'
 import {mockExams} from '../utils/ListUsersMock'
 
 

@@ -45,3 +45,17 @@ export const errorAddUser = (dispatch, error) => {
         }
     )
 }
+
+export const userLoggedIn = value => {
+    return {
+        type: 'USER_LOGGED_IN',
+        payload: value
+    }
+}
+
+export const userLoggedOut = value => {
+    return {
+        type: 'USER_LOGGED_OUT',
+        payload: value
+    }
+}

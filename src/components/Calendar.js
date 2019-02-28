@@ -5,9 +5,9 @@ import { styleListExams } from '../layout/Styles'
 import CalendarPicker from 'react-native-calendar-picker'
 import moment from "moment"
 import { connect } from 'react-redux'
-import { toggleDateSearch, addArrayExams, changeDateBegin, changeDateEnd, addBackupArrayExams } from '../actions/ExamsAction'
-import { changeDateExam } from '../actions/CalendarAction'
-import { toggleOverlay, changeExam } from '../actions/ExamAction'
+import { toggleDateSearch, addArrayExams, changeDateBegin, changeDateEnd, addBackupArrayExams } from '../store/actions/ExamsAction'
+import { changeDateExam } from '../store/actions/CalendarAction'
+import { toggleOverlay, changeExam } from '../store/actions/ExamAction'
 import { mockExams } from '../utils/ListUsersMock'
 
 

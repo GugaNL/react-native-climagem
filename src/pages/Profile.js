@@ -4,7 +4,7 @@ import { Avatar, Badge } from 'react-native-elements'
 import { styleProfile } from '../layout/Styles'
 import ImagePicker from 'react-native-image-picker'
 import { connect } from 'react-redux'
-import { changeProfilePhoto } from '../actions/ProfileAction'
+import { changeProfilePhoto } from '../store/actions/ProfileAction'
 import profileIcon from '../assets/imgs/doctor-icon.png'
 import { Icon } from 'react-native-elements'
 

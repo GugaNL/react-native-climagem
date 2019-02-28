@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, Text, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {styleLogin} from '../layout/Styles'
 import logo from '../assets/imgs/logo2.png'
 import { connect } from 'react-redux'
-import { changeEmail, changePassword } from '../actions/AuthAction'
+import { changeEmail, changePassword } from '../store/actions/AuthAction'
 
 
 class Login extends React.Component {
