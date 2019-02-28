@@ -1,4 +1,6 @@
 import firebase from 'firebase'
+import axios from 'axios'
+
 
 export const changeExam = (value, field) => {
     return {
@@ -61,4 +63,17 @@ export const errorAddExam = (dispatch, error) => {
         type: 'ERROR_ADD_EXAM',
         payload: error.message
     })
+}
+
+//Usando Axios
+export const addExamAxios = exam => {
+    return dispatch => {
+        axios.post('/exames.json', { ...exam })
+        .then((res) => {
+           dispatch(sucessAddExam(res.data))
+        })
+        .catch(error => {
+            console.log('Erro na requisição: ', error)
+        })
+    }
 }

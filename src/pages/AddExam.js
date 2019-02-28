@@ -5,21 +5,20 @@ import { Dropdown } from 'react-native-material-dropdown'
 import { styleAddExam } from '../layout/Styles'
 import Calendar from '../components/Calendar'
 import { connect } from 'react-redux'
-import { addExam, changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay } from '../store/actions/ExamAction'
-import {changeDateExam} from '../store/actions/CalendarAction'
+import { changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay, addExamAxios } from '../store/actions/ExamAction'
+import { changeDateExam } from '../store/actions/CalendarAction'
 
 
 class AddExam extends Component {
 
     _addExam() {
-        //console.log('props: ', this.props.exam)
         this.props.addExam(this.props.exam)
     }
 
     _toggleShowAgreement() {
-        if(this.props.showAgreementName === true) {
+        if (this.props.showAgreementName === true) {
             this.props.toggleShowAgreement(false)
-        }else{
+        } else {
             this.props.toggleShowAgreement(true)
             this.props.changeExam('', 'price')
         }
@@ -62,12 +61,12 @@ class AddExam extends Component {
                 </Overlay>
             )
         }
-        
+
         let dateField
-        if(this.props.dateExam != null){
-            dateField = <Text style={{marginLeft: 20}} onPress={() => this._toggleOverlay()} >{this.props.dateExam}</Text>
+        if (this.props.dateExam != null) {
+            dateField = <Text style={{ marginLeft: 20 }} onPress={() => this._toggleOverlay()} >{this.props.dateExam}</Text>
         } else {
-            dateField = <Text style={{marginLeft: 20}} onPress={() => this._toggleOverlay()}>Escolha a data aqui</Text>
+            dateField = <Text style={{ marginLeft: 20 }} onPress={() => this._toggleOverlay()}>Escolha a data aqui</Text>
         }
 
 
@@ -121,4 +120,13 @@ const mapStateToProps = state => ({
     dateExam: state.CalendarReducer.dateExam
 })
 
-export default connect(mapStateToProps, { addExam, changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay, changeDateExam })(AddExam)
+const mapDispatchToProps = dispatch => ({
+    addExam: exam => dispatch(addExamAxios(exam)),
+    changeExam: exam => dispatch(changeExam(exam)),
+    changeDateExam: date => dispatch(changeDateExam(date)),
+    toggleShowAgreement: value => dispatch(toggleShowAgreement(value)),
+    toggleShowCalendarExam: value => dispatch(toggleShowCalendarExam(value)),
+    toggleOverlay: value => dispatch(toggleOverlay(value))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddExam)

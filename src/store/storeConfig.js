@@ -1,5 +1,5 @@
-import { createStore, combineReducers, applyMiddleware} from 'redux'
-import ReduxThunk from 'redux-thunk'
+import { createStore, combineReducers, compose, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
 import AuthReducer from './reducers/AuthReducer'
 import ExamsReducer from './reducers/ExamsReducer'
 import PatientReducer from './reducers/PatientReducer'
@@ -17,7 +17,8 @@ const reducers = combineReducers({
 })
 
 const storeConfig = () => {
-    return createStore(reducers, {}, applyMiddleware(ReduxThunk))
+    // return createStore(reducers, {}, applyMiddleware(ReduxThunk))
+    return createStore(reducers, compose(applyMiddleware(thunk)))
 }
 
 export default storeConfig

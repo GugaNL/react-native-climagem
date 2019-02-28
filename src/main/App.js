@@ -5,8 +5,9 @@ import { styleApp } from '../layout/Styles'
 import { Provider } from 'react-redux'
 import storeConfig from '../store/storeConfig'
 import firebase from 'firebase'
+import axios from 'axios'
 
-
+axios.defaults.baseURL = 'https://react-native-climagem.firebaseio.com/'
 const storeConf = storeConfig()
 
 export default class App extends Component {
