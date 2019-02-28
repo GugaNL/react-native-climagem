@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { View } from 'react-native'
-import  Menu from './Menu'
-import {styleApp} from '../layout/Styles'
+import Menu from './Menu'
+import { styleApp } from '../layout/Styles'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import reducers from '../store/reducers/index'
+import storeConfig from '../store/storeConfig'
 import firebase from 'firebase'
-import ReduxThunk from 'redux-thunk'
 
+
+const storeConf = storeConfig()
 
 export default class App extends Component {
 
@@ -25,7 +25,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
+      <Provider store={storeConf}>
         <View style={styleApp.container}>
           <Menu />
         </View>
