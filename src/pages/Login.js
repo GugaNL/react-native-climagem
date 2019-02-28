@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import {styleLogin} from '../layout/Styles'
 import logo from '../assets/imgs/logo2.png'
 import { connect } from 'react-redux'
-import { changeEmail, changePassword } from '../store/actions/AuthAction'
+import { changeEmail, changePassword, userLoggedIn } from '../store/actions/AuthAction'
 
 
 class Login extends React.Component {
@@ -37,17 +37,6 @@ class Login extends React.Component {
                 onChangeText={value => this.props.changePassword(value)}
                 />
 
-  
-                {/* {<TextInput value={this.props.email} style={styleLogin.input} placeholder='Digite seu email'
-                    placeholderTextColor='#A0A0A0' keyboardType='email-address'
-                    onChangeText={value => this.props.changeEmail(value)} />} */}
-
-
-                {/* {<TextInput style={styleLogin.input} placeholder='Digite sua senha'
-                    placeholderTextColor='#A0A0A0' secureTextEntry={true}
-                    onChangeText={value => this.props.changePassword(value)} />} */}
-
-
                 <TouchableOpacity style={styleLogin.buttom} onPress={() => this.login()}>
                     <Text style={styleLogin.buttomText}>Entrar</Text>
                 </TouchableOpacity>
@@ -71,4 +60,10 @@ const mapStateToProps = state => (
     }
 )
 
-export default connect(mapStateToProps, { changeEmail, changePassword })(Login)
+const mapDispatchToProps = dispatch => {
+   return {
+       loginOn: user => dispatch(userLoggedIn(user)) //pega a action criada e encaminha para todos os reducers
+   }
+}
+
+export default connect(mapStateToProps, { changeEmail, changePassword, userLoggedIn })(Login)

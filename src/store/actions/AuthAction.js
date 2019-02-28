@@ -46,16 +46,16 @@ export const errorAddUser = (dispatch, error) => {
     )
 }
 
-export const userLoggedIn = value => {
+export const userLoggedIn = user => {
     return {
         type: 'USER_LOGGED_IN',
-        payload: value
+        payload: user
     }
 }
 
-export const userLoggedOut = value => {
+export const userLoggedOut = user => {
     return {
         type: 'USER_LOGGED_OUT',
-        payload: value
+        payload: user
     }
 }
