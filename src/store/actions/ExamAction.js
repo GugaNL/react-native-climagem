@@ -69,7 +69,7 @@ export const addExamAxios = exam => {
     return dispatch => {
         axios.post('/exames.json', { ...exam })
             .then((res) => {
-                dispatch(sucessAddExam(res.data))
+                sucessAddExam(dispatch(res.data))
             })
             .catch(error => {
                 console.log('Erro na requisição: ', error)

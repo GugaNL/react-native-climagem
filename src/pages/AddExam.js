@@ -12,7 +12,9 @@ import { changeDateExam } from '../store/actions/CalendarAction'
 class AddExam extends Component {
 
     _addExam() {
+        console.log(this.props)
         this.props.addExam(this.props.exam)
+
     }
 
     _toggleShowAgreement() {
@@ -43,6 +45,13 @@ class AddExam extends Component {
             { value: 'Feminino' }
         ]
 
+        let hours = [
+            { value: '08:30' },
+            { value: '10:30' },
+            { value: '14:30' },
+            { value: '16:00' }
+        ]
+
         let agreementInput
         let price
 
@@ -67,8 +76,13 @@ class AddExam extends Component {
         }
 
         let dateField
+        let hour
         if (this.props.dateExam != null) {
             dateField = <Text style={{ marginLeft: 20 }} onPress={() => this._toggleOverlay()} >{this.props.dateExam}</Text>
+            hour = <Dropdown label='Horário' data={hours}
+                containerStyle={{ width: 100, marginBottom: 18, marginLeft: 30 }}
+                onChangeText={(text) => this.props.changeExam(text, 'time')}
+                value={this.props.exam.time} />
         } else {
             dateField = <Text style={{ marginLeft: 20, backgroundColor: '#FDF5E6' }} onPress={() => this._toggleOverlay()}>Escolha a data aqui</Text>
         }
@@ -104,7 +118,7 @@ class AddExam extends Component {
                                 <Dropdown label='Sexo' data={genre}
                                     containerStyle={{ width: 110, marginBottom: 16 }}
                                     onChangeText={(text) => this.props.changeExam(text, 'genre')}
-                                    value={this.props.exam.type} />
+                                    value={this.props.exam.genre} />
                             </View>
                         </View>
 
@@ -139,9 +153,10 @@ class AddExam extends Component {
                             onChangeText={(text) => this.props.changeExam(text, 'type')}
                             value={this.props.exam.type} />
 
-                        <View style={{ flexDirection: 'row', marginLeft: 10, marginTop: 10 }}>
+                        <View style={{ flexDirection: 'row', marginLeft: 10, marginTop: 10, alignItems: 'center' }}>
                             <Text>Data</Text>
                             {dateField}
+                            {hour}
                         </View>
 
 
@@ -172,18 +187,6 @@ class AddExam extends Component {
 
                 </ScrollView>
             </View>
-            // <View style={styleAddExam.containerMain}>
-            //     <ScrollView>
-
-
-            //         <TouchableOpacity style={styleAddExam.buttomConfirm} onPress={() => this._addExam()}>
-            //             <Text style={styleAddExam.buttomText}>Solicitar</Text>
-            //         </TouchableOpacity>
-            //         <TouchableOpacity style={styleAddExam.buttomCancel}>
-            //             <Text style={styleAddExam.buttomText}>Cancelar</Text>
-            //         </TouchableOpacity>
-            //     </ScrollView>
-            // </View>
         )
     }
 }
@@ -198,7 +201,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     addExam: exam => dispatch(addExamAxios(exam)),
-    changeExam: exam => dispatch(changeExam(exam)),
+    changeExam: (value, field) => dispatch(changeExam(value, field)),
     changeDateExam: date => dispatch(changeDateExam(date)),
     toggleShowAgreement: value => dispatch(toggleShowAgreement(value)),
     toggleShowCalendarExam: value => dispatch(toggleShowCalendarExam(value)),

@@ -6,14 +6,13 @@ const initialState = {
         phone: '',
         email: '',
         address: '',
-
         type: '',
         date: '',
         time: '',
         agreement: '',
         price: 130,
         obs: '',
-        status: ''
+        status: 'solicitado'
     },
     showAgreementName: false,
     showCalendarExam: false,
@@ -30,6 +29,7 @@ export default (state = initialState, action) => {
                 listExams: action.payload
             }
         case 'CHANGE_EXAM':
+        console.log('action changeExam: ', action)
             return {
                 ...state,
                 exam: {
