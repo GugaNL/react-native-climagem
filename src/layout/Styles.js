@@ -269,26 +269,79 @@ export const stylePatient = StyleSheet.create({
 })
 
 export const styleAddExam = StyleSheet.create({
-    containerMain: {
-        flex: 1, 
-        justifyContent: 'center'
+    containerTitle: {
+        flex: 1,
+        backgroundColor: '#48D1CC'
     },
-    containerRow: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        marginBottom: 25, 
-        marginHorizontal: 20
+    textPatientTitle: {
+        marginTop: 20,
+        marginLeft: 15,
+        alignItems: 'center',
     },
-    containerAgreement: {
-        flexDirection: 'row',
-        marginBottom: 25,
+    containerInfoPatient: {
+        width: '100%',
+        height: 350,
+        // height: Dimensions.get('window').height * 2 / 4,
+        marginTop: 15,
+        backgroundColor: '#F5FFFA',
+        borderWidth: 0.5,
+        borderColor: '#C0C0C0',
+    },
+    infoPatient: {
+        margin: 10,
+    },
+    inputContainerName: {
+        borderBottomWidth: 0, 
+        backgroundColor: '#FDF5E6', 
+        width: Dimensions.get('window').width * 3 / 4,
+        borderRadius: 10
+    },
+    inputOld: {
+        borderBottomWidth: 0, 
+        width: 50,
+        backgroundColor: '#FDF5E6', 
+        borderRadius: 10,
+    },
+    inputPhone: {
+        width: Dimensions.get('window').width * 2 / 4,
+        borderBottomWidth: 0, 
+        backgroundColor: '#FDF5E6', 
+        borderRadius: 10,
+    },
+    inputAdress: {
+        width: 250,
+        borderBottomWidth: 0,
+        backgroundColor: '#FDF5E6', 
+        borderRadius: 10
+    },
+    containerInfoExam: {
+        width: '100%',
+        //height: Dimensions.get('window').width * 3 / 4,
+        // height: 290,
+        marginTop: 15,
+        backgroundColor: '#F5FFFA',
+        borderWidth: 0.5,
+        borderColor: '#C0C0C0',
+    },
+    checkboxAgreement: {
+        backgroundColor: 'transparent', 
+        borderWidth: 0, 
+        marginLeft: 0, 
+        marginTop: 10
+    },
+    inputObs: {
+        borderBottomWidth: 0, 
+        backgroundColor: '#FDF5E6',
+        width: 240,
+        borderRadius: 10
     },
     buttomConfirm: {
         backgroundColor: '#2980b6',
-        margin: 30,
+        marginTop: 30,
+        marginLeft: 10,
+        marginBottom: 15,
         height: 45,
         width: Dimensions.get('window').width * 2 / 4,
-        alignSelf: 'center',
         justifyContent: 'center',
         borderRadius: 20
     },
@@ -299,10 +352,11 @@ export const styleAddExam = StyleSheet.create({
     },
     buttomCancel: {
         backgroundColor: '#FF4500',
-        margin: 30,
+        marginTop: 30,
+        marginLeft: 20,
+        marginBottom: 15,
         height: 45,
-        width: Dimensions.get('window').width * 2 / 4,
-        alignSelf: 'center',
+        width: Dimensions.get('window').width * 1 / 4,
         justifyContent: 'center',
         borderRadius: 20
     },

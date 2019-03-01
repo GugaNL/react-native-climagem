@@ -4,22 +4,23 @@ import Exam from '../components/Exam'
 import SearchExam from '../components/SearchExam'
 import Calendar from '../components/Calendar'
 import { styleListExams } from '../layout/Styles'
-import { mockExams, mockPatients } from '../utils/ListUsersMock'
+// import { mockExams, mockPatients } from '../utils/ListUsersMock'
 import { connect } from 'react-redux'
 import { toggleDateSearch, addArrayExams, changeQuerySearch, addBackupArrayExams } from '../store/actions/ExamsAction'
 import { changePatient } from '../store/actions/PatientAction'
+import { listExamsAxios, sucessListExams } from '../store/actions/ExamAction'
 
 
 
 class Exams extends React.Component {
 
-    componentWillMount() {
-        this.props.addArrayExams(mockExams)
-        this.props.addBackupArrayExams(mockExams) //alterar para requisiçao de api do banco
-        this.props.changePatient(mockPatients) //alterar para requisiçao de api do banco
+    componentDidMount() {
+        // this.props.addArrayExams(mockExams)
+        // this.props.addBackupArrayExams(mockExams) //alterar para requisiçao de api do banco
+        // this.props.changePatient(mockPatients) //alterar para requisiçao de api do banco
+        this.props.listExamsAxios()
     }
 
-    //id, name, genre, email, old, phone, agreement, address, obs, photo
 
     showPatient(item) {
         this.props.navigation.navigate('Patient')
@@ -37,7 +38,7 @@ class Exams extends React.Component {
                 <SearchExam />
                 {calendar}
                 <View style={styleListExams.list}>
-                    <FlatList data={this.props.arrayExams} keyExtractor={item => `${item.id}`}
+                    <FlatList data={this.props.listExams} keyExtractor={item => `${item.id}`}
                         renderItem={({ item }) => (
                             <View style={{ marginBottom: 25 }}>
                                 <TouchableHighlight onPress={() => this.showPatient(item)}>
@@ -59,8 +60,12 @@ const mapStateToProps = state => (
         arrayBackupExams: state.ExamsReducer.arrayBackupExams,
         querySearch: state.ExamsReducer.querySearch,
         patient: state.PatientReducer.patient,
+        listExams: state.ExamReducer.listExams
     }
 )
 
 
-export default connect(mapStateToProps, { toggleDateSearch, addArrayExams, addBackupArrayExams, changeQuerySearch, changePatient })(Exams)
+export default connect(mapStateToProps, {
+    toggleDateSearch, addArrayExams, addBackupArrayExams,
+    changeQuerySearch, changePatient, listExamsAxios, sucessListExams
+})(Exams)

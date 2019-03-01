@@ -31,7 +31,7 @@ class Exam extends React.Component {
                 <View style={styleExam.containereElement}>
                     <Text style={styleExam.type}>{this.props.type}</Text>
                     <View style={styleExam.viewPatientTitleRow}>
-                        <Text style={styleExam.patient}>{this.props.patient}</Text>
+                        <Text style={styleExam.patient}>Fulano</Text>
                         <Icon iconStyle={{ marginRight: 15 }} type='ionicon'
                             name={statusIcon} size={19} color={colorIcon}
                         />
@@ -43,12 +43,12 @@ class Exam extends React.Component {
                         <Text style={{ marginLeft: 5 }}>{this.props.date}</Text>
                         <View style={{ flexDirection: 'row', marginLeft: 20 }}>
                             <Icon name='schedule' size={18} color='#48D1CC' />
-                            <Text style={{ marginLeft: 5 }}>{this.props.schedule}</Text>
+                            <Text style={{ marginLeft: 5 }}>10:30</Text>
                         </View>
                     </View>
                     <View style={styleExam.rowElement}>
                         <Icon name='phone' size={18} color='#48D1CC' />
-                        <Text style={{ marginLeft: 5 }}>{this.props.phone}</Text>
+                        <Text style={{ marginLeft: 5 }}>(87) 99715-4422</Text>
                     </View>
                 </View>
             </View>

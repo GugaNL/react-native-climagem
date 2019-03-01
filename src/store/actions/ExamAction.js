@@ -33,7 +33,6 @@ export const toggleOverlay = value => {
 export const addExam = (exam) => {
     return dispatch => {
         //const { currentUser } = firebase.auth()
-
         firebase.database().ref('/exame/')
             .push({
                 type: exam.type,
@@ -69,11 +68,42 @@ export const errorAddExam = (dispatch, error) => {
 export const addExamAxios = exam => {
     return dispatch => {
         axios.post('/exames.json', { ...exam })
-        .then((res) => {
-           dispatch(sucessAddExam(res.data))
-        })
-        .catch(error => {
-            console.log('Erro na requisição: ', error)
-        })
+            .then((res) => {
+                dispatch(sucessAddExam(res.data))
+            })
+            .catch(error => {
+                console.log('Erro na requisição: ', error)
+            })
+    }
+}
+
+export const listExamsAxios = () => {
+    return dispatch => {
+        axios.get('/exames.json')
+            .then(res => {
+                const rawdata = res.data
+                const listExams = []
+                for (let key in rawdata) {
+                    listExams.push({
+                        ...rawdata[key], //Pega o valor de cada key do json, que são os caracteres gerados como id
+                        id: key //cria um campo id pra guardar as keys do firebase
+                    })
+                }
+                dispatch(sucessListExams(listExams))
+            })
+
+        // firebase.database().ref('/exames')
+        // .on('value', snapshot => {
+        //     let data = snapshot.val()
+        //     let items = Object.values(data)
+        //     console.log('lista items: ', items)
+        // })
+    }
+}
+
+export const sucessListExams = list => {
+    return {
+        type: 'SUCESS_LIST_EXAMS',
+        payload: list
     }
 }
