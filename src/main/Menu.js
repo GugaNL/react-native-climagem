@@ -41,15 +41,14 @@ const Menus = {
                     <Icon name='list' size={30} color={tintColor} />
                     <Badge status='primary' value={3} containerStyle={{ position: 'absolute', top: -4, right: -4 }}/>
                 </View>
-                
-
         }
     },
+
 }
 
 
 
-const TabNav = createBottomTabNavigator(Menus)
+const TabNav = createBottomTabNavigator(Menus, {initialRouteName: 'Profile'})
 
 export const newUserStackNav = createStackNavigator({
     Login: {

@@ -6,7 +6,7 @@ import Calendar from '../components/Calendar'
 import { styleListExams } from '../layout/Styles'
 // import { mockExams, mockPatients } from '../utils/ListUsersMock'
 import { connect } from 'react-redux'
-import { listExamsAxios, viewExam } from '../store/actions/ExamAction'
+import { listExamsAxios, viewExam, listExamsByStatus } from '../store/actions/ExamAction'
 
 
 class Exams extends React.Component {
@@ -19,8 +19,12 @@ class Exams extends React.Component {
         // this.props.addArrayExams(mockExams)
         // this.props.addBackupArrayExams(mockExams) //alterar para requisiçao de api do banco
         // this.props.changePatient(mockPatients) //alterar para requisiçao de api do banco
-        console.log('componentDidMount disparado')
-        this.props.listExamsAxios()
+        if(this.props.statusListView) {
+            this.props.examsByStatus(this.props.statusListView)
+        }else{
+            this.props.listExamsAxios()
+        }
+        
     }
 
 
@@ -37,6 +41,11 @@ class Exams extends React.Component {
     }
 
     render() {
+        
+        if(this.props.listExams.length == 0) {
+            this.componentDidMount()
+        }
+
         let calendar
         if (this.props.showCalendar === true) {
             calendar = <Calendar textButton='Pesquisar' rangeValue={true} showButtonClear={true} />
@@ -74,13 +83,15 @@ const mapStateToProps = state => (
         querySearch: state.ExamsReducer.querySearch,
         patient: state.PatientReducer.patient,
         listExams: state.ExamReducer.listExams,
-        examView: state.ExamReducer.examView
+        examView: state.ExamReducer.examView,
+        statusListView: state.ExamReducer.statusListView
     }
 )
 
 const mapDispatchToProps = dispatch => ({
     listExamsAxios: () => dispatch(listExamsAxios()),
-    loadExam: exam => dispatch(viewExam(exam))
+    loadExam: exam => dispatch(viewExam(exam)),
+    examsByStatus: status => dispatch(listExamsByStatus(status))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Exams)

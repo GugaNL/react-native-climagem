@@ -34,6 +34,7 @@ class Patient extends Component {
 
     let priceRowText
     let agreementRowText
+    let buttonApprove
     if (this.props.examView.price) {
       priceRowText =
         <View>
@@ -48,6 +49,21 @@ class Patient extends Component {
           <Text style={stylePatient.infoPatient}>Plano      {this.props.examView.agreement}</Text>
           <Divider style={stylePatient.divider} />
         </View>
+    }
+
+    if(this.props.examView.status != 'confirmado') {
+      buttonApprove = <Button buttonStyle={{ marginTop: 15 }} titleStyle={{ marginLeft: 7 }}
+      icon={
+        <Icon
+          type='ionicon'
+          name='ios-checkmark-circle'
+          size={18}
+          color="#32CD32"
+        />
+      }
+      title="Confirmar"
+      onPress={() => this.confirmExam()}
+    />
     }
 
 
@@ -91,18 +107,7 @@ class Patient extends Component {
           <Text style={stylePatient.infoPatient}>Observação      {this.props.examView.obs}</Text>
         </Card>
 
-        <Button buttonStyle={{ marginTop: 15 }} titleStyle={{ marginLeft: 7 }}
-          icon={
-            <Icon
-              type='ionicon'
-              name='ios-checkmark-circle'
-              size={18}
-              color="#32CD32"
-            />
-          }
-          title="Confirmar"
-          onPress={() => this.confirmExam()}
-        />
+         {buttonApprove}
       </View>
 
     )

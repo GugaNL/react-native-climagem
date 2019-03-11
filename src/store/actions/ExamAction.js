@@ -2,6 +2,19 @@ import firebase from 'firebase'
 import axios from 'axios'
 import { Alert } from 'react-native'
 
+export const clearList = () => {
+    return {
+        type: 'CLEAR_LIST',
+        payload: []
+    }
+}
+
+export const changeStatusListView = value => {
+    return {
+        type: 'CHANGE_STATUS_LIST_VIEW',
+        payload: value
+    }
+}
 
 export const changeExam = (value, field) => {
     return {
@@ -82,20 +95,6 @@ export const updateExamAxios = exam => {
     return dispatch => {
         axios.put(`/exames/${exam.id}.json`, {
             ...exam
-            // type: exam.type,
-            // name: exam.name,
-            // genre: exam.genre,
-            // old: exam.old,
-            // phone: exam.phone,
-            // email: exam.email,
-            // address: exam.address,
-            // city: exam.city,
-            // date: exam.date,
-            // time: exam.time,
-            // agreement: exam.agreement,
-            // price: exam.price,
-            // obs: exam.obs,
-            // status: exam.status
         })
             .then(() => {
                 Alert.alert('A solicitação do exame foi confirmada')
@@ -151,6 +150,25 @@ export const listExamsAxios = () => {
         //     let items = Object.values(data)
         //     console.log('lista items: ', items)
         // })
+    }
+}
+
+export const listExamsByStatus = status => {
+    return dispatch => {
+        axios.get('/exames.json')
+        .then(res => {
+            const rawData = res.data
+            const listExams = []
+            for(let key in rawData){
+              if(rawData[key].status == status){
+                listExams.push({
+                    ...rawData[key],
+                    id: key 
+               })
+              }
+            }
+            dispatch(sucessListExams(listExams))
+        })
     }
 }
 

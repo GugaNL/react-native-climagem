@@ -20,12 +20,24 @@ const initialState = {
     showCalendarExam: false,
     showOverlay: false,
     listExams: [],
-    resultOperation: null
+    resultOperation: null,
+    statusListView: null
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case 'CLEAR_LIST':
+            return {
+                ...state,
+                listExams: action.payload
+            }
+        case 'CHANGE_STATUS_LIST_VIEW':
+            return {
+                ...state,
+                statusListView: action.payload
+            }
         case 'SUCESS_LIST_EXAMS':
+        console.log('listExams: ', action.payload)
             return {
                 ...state,
                 listExams: action.payload

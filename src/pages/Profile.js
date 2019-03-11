@@ -8,6 +8,7 @@ import { changeProfilePhoto } from '../store/actions/ProfileAction'
 import { userLoggedOut } from '../store/actions/AuthAction'
 import profileIcon from '../assets/imgs/doctor-icon.png'
 import { Icon } from 'react-native-elements'
+import { changeStatusListView, clearList } from '../store/actions/ExamAction'
 
 
 const options = {
@@ -41,6 +42,12 @@ class Profile extends React.Component {
         this.props.navigation.navigate('Login')
     }
 
+    redirectListExams(status) {
+        this.props.clearList()
+        this.props.statusListView(status)
+        this.props.navigation.navigate('Consults')
+    }
+
     render() {
         return (
             <View style={styleProfile.container}>
@@ -54,18 +61,20 @@ class Profile extends React.Component {
 
                 <View style={{ marginTop: 25 }}>
 
-                    <View style={{ flexDirection: 'row' }}>
+                    <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => this.redirectListExams('confirmado')}>
                         <Badge status="success" value={3} />
                         <Text style={{ marginLeft: 10 }}>Exames marcados</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ flexDirection: 'row', marginTop: 15 }} onPress={() => this.redirectListExams('solicitado')}>
                         <Badge status="warning" value={2} />
                         <Text style={{ marginLeft: 10 }}>Exames pendentes</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ flexDirection: 'row', marginTop: 15 }} onPress={() => this.redirectListExams('cancelado')}>
                         <Badge status="error" value={1} />
                         <Text style={{ marginLeft: 10 }}>Exames cancelados</Text>
-                    </View>
+                    </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => { this.loginPage() }}>
                         <View style={{ marginTop: 30, alignItems: 'center' }}>
@@ -84,16 +93,17 @@ const mapStateToProps = state => (
     {
         photo: state.ProfileReducer.photo,
         email: state.AuthReducer.email,
-        name: state.AuthReducer.name
+        name: state.AuthReducer.name,
     }
 )
 
 const mapDispatchToProps = dispatch => (
     {
         logOut: () => dispatch(userLoggedOut()),
-        changePhoto: photo => dispatch(changeProfilePhoto(photo))
+        changePhoto: photo => dispatch(changeProfilePhoto(photo)),
+        statusListView: status => dispatch(changeStatusListView(status)),
+        clearList: () => dispatch(clearList())
     }
 )
 
-//export default connect(mapStateToProps, { changeProfilePhoto, userLoggedOut })(Profile)
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)
