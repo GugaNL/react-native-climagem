@@ -1,11 +1,27 @@
 import firebase from 'firebase'
 import axios from 'axios'
+import { Alert } from 'react-native'
 
 
 export const changeExam = (value, field) => {
     return {
         type: 'CHANGE_EXAM',
         payload: { value, field }
+    }
+}
+
+export const viewExam = exam => {
+    return {
+        type: 'VIEW_EXAM',
+        payload: exam
+    }
+}
+
+export const changeStatus = value => {
+    console.log('examView na action: ', value)
+    return {
+        type: 'CHANGE_STATUS',
+        payload: value
     }
 }
 
@@ -30,52 +46,89 @@ export const toggleOverlay = value => {
     }
 }
 
-export const addExam = (exam) => {
-    return dispatch => {
-        //const { currentUser } = firebase.auth()
-        firebase.database().ref('/exame/')
-            .push({
-                type: exam.type,
-                date: exam.date,
-                agreement: exam.agreement,
-                price: exam.price,
-                obs: exam.obs
-            })
-            .then(() => {
-                sucessAddExam(dispatch)
-            })
-            .catch((error) => {
-                errorAddExam(dispatch, error)
-            })
+export const sucessAddExam = value => {
+    console.log('Entrou no sucessAddExam')
+    return {
+        type: 'SUCESS_ADD_EXAM',
+        payload: value
     }
 }
 
-export const sucessAddExam = dispatch => {
-    dispatch({
-        type: 'SUCESS_ADD_EXAM',
-        payload: 'OK'
-    })
-}
-
-export const errorAddExam = (dispatch, error) => {
-    dispatch({
+export const errorAddExam = error => {
+    console.log('Entrou no errorAddExam: ', error)
+    return {
         type: 'ERROR_ADD_EXAM',
-        payload: error.message
-    })
+        payload: error
+    }
 }
 
 //Usando Axios
 export const addExamAxios = exam => {
     return dispatch => {
         axios.post('/exames.json', { ...exam })
-            .then((res) => {
-                sucessAddExam(dispatch(res.data))
+            .then(() => {
+                Alert.alert('Sua consulta foi solicitada com sucesso')
+                dispatch(sucessAddExam('OK'))
             })
             .catch(error => {
-                console.log('Erro na requisição: ', error)
+                Alert.alert('Erro na solicitação da consulta ', error)
+                dispatch(errorAddExam(error))
             })
     }
 }
+
+export const updateExamAxios = exam => {
+    console.log('exam na action update: ', exam)
+    return dispatch => {
+        axios.put(`/exames/${exam.id}.json`, {
+            ...exam
+            // type: exam.type,
+            // name: exam.name,
+            // genre: exam.genre,
+            // old: exam.old,
+            // phone: exam.phone,
+            // email: exam.email,
+            // address: exam.address,
+            // city: exam.city,
+            // date: exam.date,
+            // time: exam.time,
+            // agreement: exam.agreement,
+            // price: exam.price,
+            // obs: exam.obs,
+            // status: exam.status
+        })
+            .then(() => {
+                Alert.alert('A solicitação do exame foi confirmada')
+                dispatch(listExamsAxios())
+            })
+    }
+}
+
+//Usando fetch
+// export const addExamFetch = exam => {
+//     return async dispatch => {
+//         try {
+//             const config = {
+//                 method: 'POST',
+//                 headers: {
+//                     'Accept': 'application/json',
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify(exam)
+//             }
+//             const response = await fetch(url, config)
+
+//             if (response.status == '200') {
+//                 dispatch(sucessAddExam('OK'))
+//             } else {
+//                 dispatch(errorAddExam(error))
+//             }
+//         } catch (error) {
+//             dispatch(errorAddExam(error))
+//         }
+//     }
+// }
+
 
 export const listExamsAxios = () => {
     return dispatch => {
@@ -85,8 +138,8 @@ export const listExamsAxios = () => {
                 const listExams = []
                 for (let key in rawdata) {
                     listExams.push({
-                        ...rawdata[key], //Pega o valor de cada key do json, que são os caracteres gerados como id
-                        id: key //cria um campo id pra guardar as keys do firebase
+                         ...rawdata[key],//Pega o valor de cada key do json, que são os caracteres gerados como id
+                         id: key //cria um campo id pra guardar as keys do firebase
                     })
                 }
                 dispatch(sucessListExams(listExams))
@@ -107,3 +160,24 @@ export const sucessListExams = list => {
         payload: list
     }
 }
+
+
+// export const addExam = (exam) => {
+//     return dispatch => {
+//         //const { currentUser } = firebase.auth()
+//         firebase.database().ref('/exame/')
+//             .push({
+//                 type: exam.type,
+//                 date: exam.date,
+//                 agreement: exam.agreement,
+//                 price: exam.price,
+//                 obs: exam.obs
+//             })
+//             .then(() => {
+//                 sucessAddExam(dispatch)
+//             })
+//             .catch((error) => {
+//                 errorAddExam(dispatch, error)
+//             })
+//     }
+// }

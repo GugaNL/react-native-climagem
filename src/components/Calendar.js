@@ -88,7 +88,7 @@ class Calendar extends Component {
         return (
             <View style={styleListExams.calendar}>
                 <CalendarPicker weekdays={week} months={months}
-                    nextTitle='Próximo' minDate={minDate} allowRangeSelection={this.props.rangeValue}
+                    nextTitle='Próximo' previousTitle='Anterior' minDate={minDate} allowRangeSelection={this.props.rangeValue}
                     onDateChange={(date, type) => this.onDateChange(date, type)} />
                 <View style={styleListExams.containerSearch}>
                     <TouchableOpacity style={styleListExams.buttonSearch} onPress={() => this.calculateInterval()}>

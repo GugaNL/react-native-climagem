@@ -8,8 +8,8 @@ import { connect } from 'react-redux'
 
 class Exam extends React.Component {
 
-    render() {
 
+    render() {
         var statusIcon = ''
         var colorIcon = ''
 
@@ -17,7 +17,7 @@ class Exam extends React.Component {
             statusIcon = 'ios-checkmark-circle'
             colorIcon = '#008000'
         } else
-            if (this.props.status == 'aguardando') {
+            if (this.props.status == 'solicitado') {
                 statusIcon = 'ios-remove-circle'
                 colorIcon = '#FFA500'
             } else {
@@ -31,7 +31,7 @@ class Exam extends React.Component {
                 <View style={styleExam.containereElement}>
                     <Text style={styleExam.type}>{this.props.type}</Text>
                     <View style={styleExam.viewPatientTitleRow}>
-                        <Text style={styleExam.patient}>Fulano</Text>
+                        <Text style={styleExam.patient}>{this.props.name}</Text>
                         <Icon iconStyle={{ marginRight: 15 }} type='ionicon'
                             name={statusIcon} size={19} color={colorIcon}
                         />
@@ -43,12 +43,12 @@ class Exam extends React.Component {
                         <Text style={{ marginLeft: 5 }}>{this.props.date}</Text>
                         <View style={{ flexDirection: 'row', marginLeft: 20 }}>
                             <Icon name='schedule' size={18} color='#48D1CC' />
-                            <Text style={{ marginLeft: 5 }}>10:30</Text>
+                            <Text style={{ marginLeft: 5 }}>{this.props.time}</Text>
                         </View>
                     </View>
                     <View style={styleExam.rowElement}>
                         <Icon name='phone' size={18} color='#48D1CC' />
-                        <Text style={{ marginLeft: 5 }}>(87) 99715-4422</Text>
+                        <Text style={{ marginLeft: 5 }}>{this.props.phone}</Text>
                     </View>
                 </View>
             </View>

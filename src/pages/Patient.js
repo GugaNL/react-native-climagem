@@ -3,10 +3,7 @@ import { View, Text, Alert } from 'react-native'
 import { stylePatient } from '../layout/Styles'
 import { Avatar, Divider, Card, Button, Icon } from 'react-native-elements'
 import { connect } from 'react-redux'
-import {
-  changeNamePatient, changeGenrePatient, changeEmailPatient, changeOldPatient, changePhonePatient,
-  changeAgreementPatient, changeAddressPatient, changeObservationPatient, changePhotoPatient
-} from '../store/actions/PatientAction'
+import { changeStatus, updateExamAxios } from '../store/actions/ExamAction'
 
 
 
@@ -14,57 +11,84 @@ class Patient extends Component {
 
 
   confirmExam() {
-     Alert.alert(
-       'Aviso',
-       'Deseja confirmar a solicitação do exame?',
-       [
-         {
+    Alert.alert(
+      'Aviso',
+      'Deseja confirmar a solicitação do exame?',
+      [
+        {
           text: 'Cancelar',
-          //onPress: () => console.log('Cancel Pressed'),
+          //onPress: () => console.log('Cancelar'),
           style: 'cancel',
-         },
-         {text: 'Sim', onPress: () => console.log('OK Pressed')},
-       ]
-     )
+        },
+        { text: 'Sim', onPress: () => this._changeExam() },
+      ]
+    )
+  }
+
+  _changeExam() {
+    this.props.aproveStatus('confirmado')
+    this.props.aproveExam(this.props.examView)
   }
 
   render() {
+
+    let priceRowText
+    let agreementRowText
+    if (this.props.examView.price) {
+      priceRowText =
+        <View>
+          <Text style={stylePatient.infoPatient}>Valor      {this.props.examView.price}</Text>
+          <Divider style={stylePatient.divider} />
+        </View>
+    }
+
+    if (this.props.examView.agreement) {
+      agreementRowText =
+        <View>
+          <Text style={stylePatient.infoPatient}>Plano      {this.props.examView.agreement}</Text>
+          <Divider style={stylePatient.divider} />
+        </View>
+    }
+
+
     return (
       <View style={stylePatient.containerTitle}>
         <View style={{ flexDirection: 'row' }}>
           <Avatar size='medium' rounded title='FT' containerStyle={{ marginTop: 15 }} />
           <View style={stylePatient.textPatientTitle}>
-            <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Fulano de Tal</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{this.props.examView.name}</Text>
             <View style={{ flexDirection: 'row' }}>
-              <Text>34 anos</Text>
-              <Text> - Masculino</Text>
+              <Text>{this.props.examView.old} anos</Text>
+              <Text> - {this.props.examView.genre}</Text>
             </View>
           </View>
         </View>
 
         <Card containerStyle={stylePatient.containerInfoPatient}>
           <Text style={{ margin: 10, marginBottom: 20, fontSize: 12 }}>Informações do Paciente</Text>
-          <Text style={stylePatient.infoPatient}>Telefone </Text>
+          <Text style={stylePatient.infoPatient}>Telefone      {this.props.examView.phone}</Text>
           <Divider style={stylePatient.divider} />
-          <Text style={stylePatient.infoPatient}>Email </Text>
+          <Text style={stylePatient.infoPatient}>Email      {this.props.examView.email}</Text>
           <Divider style={stylePatient.divider} />
-          <Text style={stylePatient.infoPatient}>Naturaridade </Text>
+          <Text style={stylePatient.infoPatient}>Cidade      {this.props.examView.city}</Text>
           <Divider style={stylePatient.divider} />
-          <Text style={stylePatient.infoPatient}>Endereço </Text>
+          <Text style={stylePatient.infoPatient}>Endereço      {this.props.examView.address}</Text>
         </Card>
 
         <Card containerStyle={stylePatient.containerInfoExam}>
           <Text style={{ margin: 10, marginBottom: 20, fontSize: 12 }}>Informações do Exame</Text>
-          <Text style={stylePatient.infoPatient}>Tipo </Text>
+          <Text style={stylePatient.infoPatient}>Tipo do Exame     {this.props.examView.type}</Text>
           <Divider style={stylePatient.divider} />
-          <Text style={stylePatient.infoPatient}>Plano </Text>
+
+          {agreementRowText}
+
+          {priceRowText}
+
+          <Text style={stylePatient.infoPatient}>Data Marcada      {this.props.examView.date}</Text>
           <Divider style={stylePatient.divider} />
-          <Text style={stylePatient.infoPatient}>Valor </Text>
+          <Text style={stylePatient.infoPatient}>Horário      {this.props.examView.time}</Text>
           <Divider style={stylePatient.divider} />
-          <Text style={stylePatient.infoPatient}>Matrícula </Text>
-          <Divider style={stylePatient.divider} />
-          <Text style={stylePatient.infoPatient}>Data Marcada </Text>
-          <Text style={stylePatient.infoPatient}>Observação </Text>
+          <Text style={stylePatient.infoPatient}>Observação      {this.props.examView.obs}</Text>
         </Card>
 
         <Button buttonStyle={{ marginTop: 15 }} titleStyle={{ marginLeft: 7 }}
@@ -87,21 +111,15 @@ class Patient extends Component {
 
 const mapStateToProps = state => (
   {
-    name: state.PatientReducer.changeNamePatient,
-    genre: state.PatientReducer.changeGenrePatient,
-    email: state.PatientReducer.changeEmailPatient,
-    old: state.PatientReducer.changeOldPatient,
-    phone: state.PatientReducer.changePhonePatient,
-    agreement: state.PatientReducer.changeAgreementPatient,
-    address: state.PatientReducer.changeAddressPatient,
-    observation: state.PatientReducer.changeObservationPatient,
-    photo: state.PatientReducer.changePhotoPatient
+    examView: state.ExamReducer.exam
   }
 )
 
-export default connect(mapStateToProps, {
-  changeNamePatient, changeGenrePatient, changeEmailPatient, changeOldPatient, changePhonePatient,
-  changeAgreementPatient, changeAddressPatient, changeObservationPatient, changePhotoPatient
-})(Patient)
+const mapDispatchToProps = dispatch => ({
+   aproveStatus: value => dispatch(changeStatus(value)),
+   aproveExam: exam => dispatch(updateExamAxios(exam)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Patient)
 
 

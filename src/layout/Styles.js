@@ -314,6 +314,12 @@ export const styleAddExam = StyleSheet.create({
         backgroundColor: '#FDF5E6', 
         borderRadius: 10
     },
+    inputCity: {
+        width: 260,
+        borderBottomWidth: 0,
+        backgroundColor: '#FDF5E6', 
+        borderRadius: 10
+    },
     containerInfoExam: {
         width: '100%',
         //height: Dimensions.get('window').width * 3 / 4,
@@ -327,7 +333,7 @@ export const styleAddExam = StyleSheet.create({
         backgroundColor: 'transparent', 
         borderWidth: 0, 
         marginLeft: 0, 
-        marginTop: 10
+        marginTop: 0
     },
     inputObs: {
         borderBottomWidth: 0, 

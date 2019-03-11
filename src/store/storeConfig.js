@@ -17,8 +17,8 @@ const reducers = combineReducers({
 })
 
 const storeConfig = () => {
-    // return createStore(reducers, {}, applyMiddleware(ReduxThunk))
     return createStore(reducers, compose(applyMiddleware(thunk)))
+    // return createStore(reducers, compose(applyMiddleware(thunk)))
 }
 
 export default storeConfig

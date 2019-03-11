@@ -1,20 +1,25 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
-import { Input, CheckBox, Overlay, Card, Divider } from 'react-native-elements'
+import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native'
+import { Input, CheckBox, Overlay, Card } from 'react-native-elements'
 import { Dropdown } from 'react-native-material-dropdown'
 import { styleAddExam } from '../layout/Styles'
 import Calendar from '../components/Calendar'
 import { connect } from 'react-redux'
 import { changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay, addExamAxios } from '../store/actions/ExamAction'
-import { changeDateExam } from '../store/actions/CalendarAction'
+import {changeDateExam} from '../store/actions/CalendarAction'
+import { TextInputMask } from 'react-native-masked-text'
+
+
 
 
 class AddExam extends Component {
 
-    _addExam() {
-        console.log(this.props)
+     _addExam() {
         this.props.addExam(this.props.exam)
-
+        this._toggleShowAgreement()
+        this.props.changeDateExam(null)
+        //  console.log('result: ',this.props.result)
+        // this.props.result === 'OK' ? Alert.alert('Sucesso', 'O exame foi solicitado') : Alert.alert('Erro na solicitação do exame')
     }
 
     _toggleShowAgreement() {
@@ -28,6 +33,10 @@ class AddExam extends Component {
 
     _toggleOverlay() {
         this.props.showOverlay === true ? this.props.toggleOverlay(false) : this.props.toggleOverlay(true)
+    }
+
+    statePhone(texto) {
+        this.props.changeExam(texto, 'phone')
     }
 
     render() {
@@ -77,7 +86,7 @@ class AddExam extends Component {
 
         let dateField
         let hour
-        if (this.props.dateExam != null) {
+        if (this.props.dateExam) {
             dateField = <Text style={{ marginLeft: 20 }} onPress={() => this._toggleOverlay()} >{this.props.dateExam}</Text>
             hour = <Dropdown label='Horário' data={hours}
                 containerStyle={{ width: 100, marginBottom: 18, marginLeft: 30 }}
@@ -104,6 +113,7 @@ class AddExam extends Component {
                             <Input placeholder='Nome completo'
                                 inputContainerStyle={styleAddExam.inputContainerName}
                                 inputStyle={{ textAlign: 'center' }}
+                                value={this.props.exam.name}
                                 onChangeText={(text => this.props.changeExam(text, 'name'))} />
                         </View>
 
@@ -111,6 +121,7 @@ class AddExam extends Component {
                             <View style={{ flexDirection: 'row', width: 100 }}>
                                 <Text style={styleAddExam.infoPatient}>Idade </Text>
                                 <Input inputContainerStyle={styleAddExam.inputOld}
+                                value={this.props.exam.old}
                                     inputStyle={{ textAlign: 'center' }}
                                     onChangeText={(text => this.props.changeExam(text, 'old'))} />
                             </View>
@@ -124,23 +135,38 @@ class AddExam extends Component {
 
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={styleAddExam.infoPatient}>Telefone </Text>
-                            <Input placeholder='Apenas números' keyboardType='numeric'
-                                inputContainerStyle={styleAddExam.inputPhone}
-                                inputStyle={{ textAlign: 'center' }}
-                                onChangeText={(text => this.props.changeExam(text, 'phone'))} />
+
+                            <TextInputMask style={styleAddExam.inputPhone} //type={'custom'} 
+                            value={this.props.exam.phone}
+                            type="cel-phone"
+                            onChangeText={text => this.statePhone(text)}
+                            placeholder='DDD + Número' 
+                            textAlign={'center'}
+                             />
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: 10 }}>
                             <Text style={styleAddExam.infoPatient}>Email </Text>
                             <Input keyboardType='email-address' inputContainerStyle={styleAddExam.inputPhone}
+                            value={this.props.exam.email}
                                 onChangeText={(text => this.props.changeExam(text, 'email'))} />
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: 10 }}>
                             <Text style={styleAddExam.infoPatient}>Endereço </Text>
                             <Input multiline={true} placeholder='Rua/Av Casa/Apto N Quadra' inputContainerStyle={styleAddExam.inputAdress}
+                            value={this.props.exam.address}
                                 inputStyle={{ textAlign: 'center' }}
                                 onChangeText={(text => this.props.changeExam(text, 'address'))} />
+                        </View>
+
+                        <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                        <Text style={styleAddExam.infoPatient}>Cidade </Text>
+                        <Input placeholder='Cidade onde mora'
+                                inputContainerStyle={styleAddExam.inputCity}
+                                inputStyle={{ textAlign: 'center' }}
+                                value={this.props.exam.city}
+                                onChangeText={(text => this.props.changeExam(text, 'city'))} />
                         </View>
 
                     </Card>
@@ -153,7 +179,7 @@ class AddExam extends Component {
                             onChangeText={(text) => this.props.changeExam(text, 'type')}
                             value={this.props.exam.type} />
 
-                        <View style={{ flexDirection: 'row', marginLeft: 10, marginTop: 10, alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', marginLeft: 10, alignItems: 'center' }}>
                             <Text>Data</Text>
                             {dateField}
                             {hour}
@@ -171,6 +197,7 @@ class AddExam extends Component {
                             <Text style={styleAddExam.infoPatient}>Observação </Text>
                             <Input multiline={true} placeholder='Informação' inputContainerStyle={styleAddExam.inputObs}
                                 inputStyle={{ textAlign: 'center' }}
+                                value={this.props.exam.obs}
                                 onChangeText={(text => this.props.changeExam(text, 'obs'))} />
                         </View>
                     </Card>
@@ -196,7 +223,9 @@ const mapStateToProps = state => ({
     showAgreementName: state.ExamReducer.showAgreementName,
     showCalendarExam: state.ExamReducer.showCalendarExam,
     showOverlay: state.ExamReducer.showOverlay,
-    dateExam: state.CalendarReducer.dateExam
+    dateExam: state.CalendarReducer.dateExam,
+    result: state.ExamReducer.resultOperation,
+
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -205,7 +234,8 @@ const mapDispatchToProps = dispatch => ({
     changeDateExam: date => dispatch(changeDateExam(date)),
     toggleShowAgreement: value => dispatch(toggleShowAgreement(value)),
     toggleShowCalendarExam: value => dispatch(toggleShowCalendarExam(value)),
-    toggleOverlay: value => dispatch(toggleOverlay(value))
+    toggleOverlay: value => dispatch(toggleOverlay(value)),
+    changeDateExam: value => dispatch(changeDateExam(value))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddExam)
