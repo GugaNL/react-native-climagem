@@ -4,8 +4,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { SearchBar } from 'react-native-elements'
 import { styleListExams } from '../layout/Styles'
 import { connect } from 'react-redux'
-import { toggleDateSearch, addArrayExams, changeQuerySearch, addBackupArrayExams } from '../store/actions/ExamsAction'
-import {mockExams} from '../utils/ListUsersMock'
+import { toggleDateSearch, changeQuerySearch } from '../store/actions/ExamsAction'
+import {addArrayExams, emptyList} from '../store/actions/ExamAction'
 
 
 class SearchExam extends Component {
@@ -15,15 +15,17 @@ class SearchExam extends Component {
     }
 
     searchFilter(text) {
-        var arrayBackup = this.props.arrayExams
-        var newData = arrayBackup
-        newData = mockExams.filter(item => {
-            // const itemData = item.patient.toLowerCase()
-            const itemData = `${item.patient.toLowerCase()}
-            ${item.type.toLowerCase()}`
+        listSearch = this.props.listExamsBackup
+        newData = listSearch.filter(item => {
+            const itemData = `${item.name.toLowerCase()} ${item.type.toLowerCase()}`
             const textData = text.toLowerCase()
             return itemData.indexOf(textData) > -1
         })
+        if(newData.length == 0) {
+            this.props.emptyList(true)
+        } else {
+            this.props.emptyList(false)
+        }
         this.props.changeQuerySearch(text)
         this.props.addArrayExams(newData)
     }
@@ -32,7 +34,7 @@ class SearchExam extends Component {
         return (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <SearchBar containerStyle={styleListExams.search} inputContainerStyle={styleListExams.inputSearch}
-                    lightTheme round placeholder='Pesquisar consultas..'
+                    lightTheme round placeholder='Paciente ou tipo do exame'
                     value={this.props.querySearch}
                     onChangeText={(text) => this.searchFilter(text)} autoCorrect={false} />
                 <TouchableOpacity onPress={() => this._toggleDateSearch()}>
@@ -50,7 +52,18 @@ const mapStateToProps = state => (
         arrayExams: state.ExamsReducer.arrayExams,
         arrayBackupExams: state.ExamsReducer.arrayBackupExams,
         querySearch: state.ExamsReducer.querySearch,
+        listExams: state.ExamReducer.listExams,
+        listExamsBackup: state.ExamReducer.listExamsBackup,
     }
 )
 
-export default connect(mapStateToProps, { toggleDateSearch, addArrayExams, addBackupArrayExams, changeQuerySearch})(SearchExam)
+const mapDispatchToProps = dispatch => (
+    {
+        toggleDateSearch: value => dispatch(toggleDateSearch(value)),
+        addArrayExams: list => dispatch(addArrayExams(list)),
+        changeQuerySearch: text => dispatch(changeQuerySearch(text)),
+        emptyList: value => dispatch(emptyList(value))
+    }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchExam)

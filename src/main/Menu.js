@@ -9,8 +9,31 @@ import Login from '../pages/Login'
 import NewUser from '../pages/NewUser'
 import Patient from '../pages/Patient'
 import AddExam from '../pages/AddExam'
+import { clearList } from '../store/actions/ExamAction'
+import { connect } from 'react-redux'
 
 
+
+const tabBarOnPress = ({ navigation, defaultHandler }) => {
+    // console.log('Entrou', navigation.state.key)
+    const { isFocused, state, goBack } = navigation
+    if (isFocused()) {
+        console.log('No focus ')
+        if (state.routes.length > 1) {
+            for (let i = 0; i < state.routes.length - 1; i += 1) {
+                goBack()
+            }
+        } else {
+            console.log('Entrou no else ')
+        }
+    } else {
+        if(state.routeName == 'Consults') {
+            // this.props.clearList()
+        }
+        // console.log('Entrou no ultimo else', state.routeName)
+        defaultHandler()
+    }
+}
 
 const Menus = {
     Profile: {
@@ -23,13 +46,13 @@ const Menus = {
         }
     },
     AddExam: {
-       name: 'Consulta',
-       screen: AddExam,
-       navigationOptions: {
-           title: '',
-           tabBarIcon: ({ tintColor }) => 
-           <Icon name='plus-circle' size={60} color='#FF4500' style={{position: 'absolute',marginBottom: 25}}/>
-       }
+        name: 'Consulta',
+        screen: AddExam,
+        navigationOptions: {
+            title: '',
+            tabBarIcon: ({ tintColor }) =>
+                <Icon name='plus-circle' size={60} color='#FF4500' style={{ position: 'absolute', marginBottom: 25 }} />
+        }
     },
     Consults: {
         name: 'Exams',
@@ -37,10 +60,11 @@ const Menus = {
         navigationOptions: {
             title: 'Exames',
             tabBarIcon: ({ tintColor }) =>
-                <View>
+                (<View>
                     <Icon name='list' size={30} color={tintColor} />
-                    <Badge status='primary' value={3} containerStyle={{ position: 'absolute', top: -4, right: -4 }}/>
-                </View>
+                    <Badge status='primary' value={3} containerStyle={{ position: 'absolute', top: -4, right: -4 }} />
+                </View>),
+            tabBarOnPress
         }
     },
 
@@ -48,9 +72,9 @@ const Menus = {
 
 
 
-const TabNav = createBottomTabNavigator(Menus, {initialRouteName: 'Profile'})
+const TabNav = createBottomTabNavigator(Menus, { initialRouteName: 'Profile' })
 
-export const newUserStackNav = createStackNavigator({
+ const newUserStackNav = createStackNavigator({
     Login: {
         screen: Login,
         navigationOptions: {
@@ -78,5 +102,16 @@ export const newUserStackNav = createStackNavigator({
     }
 })
 
+const mapStateToProps = state => (
+    {
+        listExams: state.ExamReducer.listExams
+    }
+)
+
+const mapDispatchToProps = dispatch => (
+    {
+        clearList: () => dispatch(clearList())
+    }
+)
 //export default TabNav
-export default newUserStackNav
+export default connect(mapStateToProps, mapDispatchToProps)(newUserStackNav)

@@ -5,19 +5,19 @@ export const toggleDateSearch = value => {
     }
 }
 
-export const addArrayExams = value => {
-    return {
-        type: 'ADD_ARRAY_EXAMS',
-        payload: value
-    }
-}
+// export const addArrayExams = value => {
+//     return {
+//         type: 'ADD_ARRAY_EXAMS',
+//         payload: value
+//     }
+// }
 
-export const addBackupArrayExams = value => {
-    return {
-        type: 'ADD_BACKUP_ARRAY_EXAMS',
-        payload: value
-    }
-}
+// export const addBackupArrayExams = value => {
+//     return {
+//         type: 'ADD_BACKUP_ARRAY_EXAMS',
+//         payload: value
+//     }
+// }
 
 export const changeQuerySearch = value => {
     return {

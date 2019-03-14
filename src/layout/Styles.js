@@ -189,7 +189,7 @@ export const styleListExams = StyleSheet.create({
         marginTop: 10,
     },
     calendar: {
-        flex: 3,
+        flex: 4,
         backgroundColor: '#FFFFFF',
         marginTop: 20,
         marginHorizontal: 10,

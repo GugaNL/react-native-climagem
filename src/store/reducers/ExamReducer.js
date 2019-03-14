@@ -20,12 +20,24 @@ const initialState = {
     showCalendarExam: false,
     showOverlay: false,
     listExams: [],
+    listExamsBackup: [],
     resultOperation: null,
-    statusListView: null
+    statusListView: null,
+    empty: null
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case 'ADD_ARRAY_EXAMS': 
+            return {
+                ...state,
+                listExams: action.payload
+            }
+        case 'EMPTY_LIST':
+            return {
+                ...state,
+                empty: action.payload
+            }
         case 'CLEAR_LIST':
             return {
                 ...state,
@@ -37,10 +49,11 @@ export default (state = initialState, action) => {
                 statusListView: action.payload
             }
         case 'SUCESS_LIST_EXAMS':
-        console.log('listExams: ', action.payload)
+        // console.log('listExams: ', action.payload)
             return {
                 ...state,
-                listExams: action.payload
+                listExams: action.payload,
+                listExamsBackup: action.payload
             }
         case 'SUCESS_ADD_EXAM':
         // console.log('Entrou no reducer: ', action.payload)

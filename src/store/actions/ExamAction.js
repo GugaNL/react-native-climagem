@@ -9,6 +9,20 @@ export const clearList = () => {
     }
 }
 
+export const addArrayExams = value => {
+    return {
+        type: 'ADD_ARRAY_EXAMS',
+        payload: value
+    }
+}
+
+// export const searchArrayExams = value => {
+//     return {
+//         type: 'ADD_BACKUP_ARRAY_EXAMS',
+//         payload: value
+//     }
+// }
+
 export const changeStatusListView = value => {
     return {
         type: 'CHANGE_STATUS_LIST_VIEW',
@@ -31,7 +45,7 @@ export const viewExam = exam => {
 }
 
 export const changeStatus = value => {
-    console.log('examView na action: ', value)
+    // console.log('examView na action: ', value)
     return {
         type: 'CHANGE_STATUS',
         payload: value
@@ -91,7 +105,7 @@ export const addExamAxios = exam => {
 }
 
 export const updateExamAxios = exam => {
-    console.log('exam na action update: ', exam)
+    // console.log('exam na action update: ', exam)
     return dispatch => {
         axios.put(`/exames/${exam.id}.json`, {
             ...exam
@@ -137,9 +151,14 @@ export const listExamsAxios = () => {
                 const listExams = []
                 for (let key in rawdata) {
                     listExams.push({
-                         ...rawdata[key],//Pega o valor de cada key do json, que são os caracteres gerados como id
-                         id: key //cria um campo id pra guardar as keys do firebase
+                        ...rawdata[key],//Pega o valor de cada key do json, que são os caracteres gerados como id
+                        id: key //cria um campo id pra guardar as keys do firebase
                     })
+                }
+                if (listExams.length == 0) {
+                    dispatch(emptyList(true))
+                } else {
+                    dispatch(emptyList(false))
                 }
                 dispatch(sucessListExams(listExams))
             })
@@ -153,22 +172,30 @@ export const listExamsAxios = () => {
     }
 }
 
+
+export const emptyList = value => {
+    return {
+        type: 'EMPTY_LIST',
+        payload: value
+    }
+}
+
 export const listExamsByStatus = status => {
-    return dispatch => {
+    return  dispatch => {
         axios.get('/exames.json')
-        .then(res => {
-            const rawData = res.data
-            const listExams = []
-            for(let key in rawData){
-              if(rawData[key].status == status){
-                listExams.push({
-                    ...rawData[key],
-                    id: key 
-               })
-              }
-            }
-            dispatch(sucessListExams(listExams))
-        })
+            .then(res => {
+                const rawData = res.data
+                const listExams = []
+                for (let key in rawData) {
+                    if (rawData[key].status == status) {
+                        listExams.push({
+                            ...rawData[key],
+                            id: key
+                        })
+                    }
+                }
+                dispatch(sucessListExams(listExams))
+            })
     }
 }
 

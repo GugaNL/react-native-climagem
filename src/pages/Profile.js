@@ -8,7 +8,7 @@ import { changeProfilePhoto } from '../store/actions/ProfileAction'
 import { userLoggedOut } from '../store/actions/AuthAction'
 import profileIcon from '../assets/imgs/doctor-icon.png'
 import { Icon } from 'react-native-elements'
-import { changeStatusListView, clearList } from '../store/actions/ExamAction'
+import { changeStatusListView, clearList, listExamsByStatus } from '../store/actions/ExamAction'
 
 
 const options = {
@@ -44,11 +44,13 @@ class Profile extends React.Component {
 
     redirectListExams(status) {
         this.props.clearList()
-        this.props.statusListView(status)
+        this.props.listExamsByStatus(status)
+        this.props.changeStatusListView(status)
         this.props.navigation.navigate('Consults')
     }
 
     render() {
+
         return (
             <View style={styleProfile.container}>
 
@@ -94,6 +96,7 @@ const mapStateToProps = state => (
         photo: state.ProfileReducer.photo,
         email: state.AuthReducer.email,
         name: state.AuthReducer.name,
+        listExams: state.ExamReducer.listExams
     }
 )
 
@@ -101,8 +104,9 @@ const mapDispatchToProps = dispatch => (
     {
         logOut: () => dispatch(userLoggedOut()),
         changePhoto: photo => dispatch(changeProfilePhoto(photo)),
-        statusListView: status => dispatch(changeStatusListView(status)),
-        clearList: () => dispatch(clearList())
+        changeStatusListView: status => dispatch(changeStatusListView(status)),
+        clearList: () => dispatch(clearList()),
+        listExamsByStatus: status => dispatch(listExamsByStatus(status)),
     }
 )
 
