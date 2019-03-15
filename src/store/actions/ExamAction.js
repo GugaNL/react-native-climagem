@@ -9,6 +9,12 @@ export const clearList = () => {
     }
 }
 
+export const clearExam = () => {
+    return {
+        type: 'CLEAR_EXAM'
+    }
+}
+
 export const addArrayExams = value => {
     return {
         type: 'ADD_ARRAY_EXAMS',

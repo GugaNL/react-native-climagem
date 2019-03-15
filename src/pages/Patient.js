@@ -3,11 +3,15 @@ import { View, Text, Alert, ScrollView } from 'react-native'
 import { stylePatient } from '../layout/Styles'
 import { Avatar, Divider, Card, Button, Icon } from 'react-native-elements'
 import { connect } from 'react-redux'
-import { changeStatus, updateExamAxios } from '../store/actions/ExamAction'
+import { changeStatus, updateExamAxios, clearExam } from '../store/actions/ExamAction'
 
 
 
 class Patient extends Component {
+
+  componentWillUnmount() {
+    this.props.clearExam()
+  }
 
 
   confirmExam() {
@@ -70,7 +74,7 @@ class Patient extends Component {
 
     return (
       <View style={stylePatient.containerTitle}>
-        <ScrollView contentContainerStyle={{width: '100%', alignItems: 'center'}}>
+        <ScrollView contentContainerStyle={{ width: '100%', alignItems: 'center' }}>
           <View style={{ flexDirection: 'row' }}>
             <Avatar size='medium' rounded title='FT' containerStyle={{ marginTop: 15 }} />
             <View style={stylePatient.textPatientTitle}>
@@ -126,6 +130,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => ({
   aproveStatus: value => dispatch(changeStatus(value)),
   aproveExam: exam => dispatch(updateExamAxios(exam)),
+  clearExam: () => dispatch(clearExam())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Patient)

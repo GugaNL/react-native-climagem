@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import {styleLogin} from '../layout/Styles'
+import { styleLogin } from '../layout/Styles'
 import logo from '../assets/imgs/logo2.png'
 import { connect } from 'react-redux'
 import { changeEmail, changePassword, userLoggedIn } from '../store/actions/AuthAction'
@@ -14,7 +14,7 @@ class Login extends React.Component {
         this.props.navigation.navigate('TabNav')
     }
 
-    pageNewUser(){
+    pageNewUser() {
         this.props.navigation.navigate('NewUser')
     }
 
@@ -23,21 +23,22 @@ class Login extends React.Component {
             <View style={styleLogin.container}>
                 <Image source={logo} style={styleLogin.logo} />
 
-                <Input underlineColorAndroid='transparent' containerStyle={styleLogin.input2} 
-                inputContainerStyle={{borderBottomWidth: 0}} inputStyle={{marginLeft: 10, color: '#fff'}} 
-                placeholder='Usuário' leftIcon={<Icon name='user' size={24} color='#C0C0C0'/>}
-                placeholderTextColor='#C0C0C0'
-                onChangeText={value => this.props.changeEmail(value)}
+                <Input underlineColorAndroid='transparent' containerStyle={styleLogin.input2}
+                    inputContainerStyle={{ borderBottomWidth: 0 }} inputStyle={{ marginLeft: 10, color: '#fff' }}
+                    placeholder='Usuário' leftIcon={<Icon name='user' size={24} color='#C0C0C0' />}
+                    placeholderTextColor='#C0C0C0'
+                    onChangeText={value => this.props.changeEmail(value)}
                 />
-                
-                <Input secureTextEntry={true} underlineColorAndroid='transparent' containerStyle={styleLogin.input2} 
-                inputContainerStyle={{borderBottomWidth: 0}} inputStyle={{marginLeft: 10}} placeholder='Senha de acesso' 
-                leftIcon={<Icon name='lock' size={24} color='#C0C0C0'/>}
-                placeholderTextColor='#C0C0C0'
-                onChangeText={value => this.props.changePassword(value)}
+
+                <Input secureTextEntry={true} underlineColorAndroid='transparent' containerStyle={styleLogin.input2}
+                    inputContainerStyle={{ borderBottomWidth: 0 }} inputStyle={{ marginLeft: 10 }} placeholder='Senha de acesso'
+                    leftIcon={<Icon name='lock' size={24} color='#C0C0C0' />}
+                    placeholderTextColor='#C0C0C0'
+                    onChangeText={value => this.props.changePassword(value)}
                 />
 
                 <TouchableOpacity style={styleLogin.buttom} onPress={() => this.login()}>
+                <Icon name='sign-in' size={24} color='#C0C0C0' style={{alignSelf: 'center', marginRight: 5}}/>
                     <Text style={styleLogin.buttomText}>Entrar</Text>
                 </TouchableOpacity>
                 <View style={styleLogin.newUser}>
@@ -61,9 +62,9 @@ const mapStateToProps = state => (
 )
 
 const mapDispatchToProps = dispatch => {
-   return {
-       loginOn: user => dispatch(userLoggedIn(user)) //pega a action criada e encaminha para todos os reducers
-   }
+    return {
+        loginOn: user => dispatch(userLoggedIn(user)) //pega a action criada e encaminha para todos os reducers
+    }
 }
 
 export default connect(mapStateToProps, { changeEmail, changePassword, userLoggedIn })(Login)

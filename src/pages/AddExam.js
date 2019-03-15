@@ -14,6 +14,10 @@ import { TextInputMask } from 'react-native-masked-text'
 
 class AddExam extends Component {
 
+    componentDidMount() {
+        console.log('componentDidMount')
+    }
+
      _addExam() {
         this.props.addExam(this.props.exam)
         this._toggleShowAgreement()

@@ -90,7 +90,7 @@ const mapStateToProps = state => (
         arrayExams: state.ExamsReducer.arrayExams,
         arrayBackupExams: state.ExamsReducer.arrayBackupExams,
         querySearch: state.ExamsReducer.querySearch,
-        patient: state.PatientReducer.patient,
+        // patient: state.PatientReducer.patient,
         listExams: state.ExamReducer.listExams,
         examView: state.ExamReducer.examView,
         statusListView: state.ExamReducer.statusListView,

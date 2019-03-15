@@ -1,10 +1,9 @@
 import React from 'react'
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
-import { Avatar } from 'react-native-elements'
+import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { changeEmail, changePassword, changeName, insertUser } from '../store/actions/AuthAction'
 import { styleNewUser } from '../layout/Styles'
-
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 class NewUser extends React.Component {
@@ -17,6 +16,7 @@ class NewUser extends React.Component {
     render() {
         return (
             <View style={styleNewUser.container}>
+                <Icon name='user-plus' size={90} color='#F5FFFA' style={{alignSelf: 'center'}} />
                 <TextInput style={styleNewUser.input} placeholder='Nome completo'
                     placeholderTextColor='#A0A0A0' keyboardType='email-address'
                     onChangeText={value => this.props.changeName(value)} />

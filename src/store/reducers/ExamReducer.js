@@ -43,6 +43,27 @@ export default (state = initialState, action) => {
                 ...state,
                 listExams: action.payload
             }
+        case 'CLEAR_EXAM':
+            return {
+                ...state,
+                exam: {
+                    ...state.exam,
+                    name: '',
+                    old: '',
+                    genre: '',
+                    phone: '',
+                    email: '',
+                    address: '',
+                    city: '',
+                    type: '',
+                    date: '',
+                    time: '',
+                    agreement: '',
+                    price: '',
+                    obs: '',
+                    showAgreementName: false,
+                }
+            }
         case 'CHANGE_STATUS_LIST_VIEW':
             return {
                 ...state,

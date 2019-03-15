@@ -36,6 +36,7 @@ export const styleLogin = StyleSheet.create({
         backgroundColor: 'rgba(225,225,225,0.2)',
     },
     buttom: {
+        flexDirection: 'row',
         backgroundColor: '#2980b6',
         margin: 30,
         height: 45,
