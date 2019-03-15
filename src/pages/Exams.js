@@ -6,6 +6,7 @@ import Calendar from '../components/Calendar'
 import { styleListExams } from '../layout/Styles'
 import { connect } from 'react-redux'
 import { listExamsAxios, viewExam, listExamsByStatus, changeStatusListView } from '../store/actions/ExamAction'
+import { toggleDateSearch } from '../store/actions/CalendarAction'
 import EmptyResult from '../components/EmptyResult'
 
 
@@ -17,6 +18,7 @@ class Exams extends React.Component {
     }
 
     async componentDidMount() {
+        if (this.props.showCalendar === true) this.props.toggleDateSearch(false)
         if (this.props.statusListView == null) {
             setTimeout(() => {
                 this.props.listExamsAxios()
@@ -52,9 +54,9 @@ class Exams extends React.Component {
         }
 
         let messageEmptyResult
-        if(this.props.empty == true){
+        if (this.props.empty == true) {
             messageEmptyResult = <EmptyResult />
-        } 
+        }
 
         return (
             <View style={styleListExams.container}>
@@ -69,7 +71,7 @@ class Exams extends React.Component {
                         onRefresh={() => this.onRefreshList()}
                         refreshing={this.state.isFetching}
                         renderItem={({ item }) => (
-                            <View style={{ marginBottom: 25 }}>
+                            <View style={{ marginBottom: 25, alignItems: 'center' }}>
                                 <TouchableHighlight onPress={() => this.showPatient(item)}>
                                     <Exam key={item.id} {...item} />
                                 </TouchableHighlight>
@@ -84,7 +86,7 @@ class Exams extends React.Component {
 
 const mapStateToProps = state => (
     {
-        showCalendar: state.ExamsReducer.showCalendar,
+        showCalendar: state.CalendarReducer.showCalendar,
         arrayExams: state.ExamsReducer.arrayExams,
         arrayBackupExams: state.ExamsReducer.arrayBackupExams,
         querySearch: state.ExamsReducer.querySearch,
@@ -100,7 +102,8 @@ const mapDispatchToProps = dispatch => ({
     listExamsAxios: () => dispatch(listExamsAxios()),
     loadExam: exam => dispatch(viewExam(exam)),
     examsByStatus: status => dispatch(listExamsByStatus(status)),
-    changeStatusListView: status => dispatch(changeStatusListView(status))
+    changeStatusListView: status => dispatch(changeStatusListView(status)),
+    toggleDateSearch: value => dispatch(toggleDateSearch(value))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Exams)

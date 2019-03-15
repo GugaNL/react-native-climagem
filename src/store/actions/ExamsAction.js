@@ -1,9 +1,9 @@
-export const toggleDateSearch = value => {
-    return {
-        type: 'TOGGLE_DATE_SEARCH',
-        payload: value
-    }
-}
+// export const toggleDateSearch = value => {
+//     return {
+//         type: 'TOGGLE_DATE_SEARCH',
+//         payload: value
+//     }
+// }
 
 // export const addArrayExams = value => {
 //     return {

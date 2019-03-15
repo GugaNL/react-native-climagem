@@ -4,8 +4,9 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { SearchBar } from 'react-native-elements'
 import { styleListExams } from '../layout/Styles'
 import { connect } from 'react-redux'
-import { toggleDateSearch, changeQuerySearch } from '../store/actions/ExamsAction'
-import {addArrayExams, emptyList} from '../store/actions/ExamAction'
+import { changeQuerySearch } from '../store/actions/ExamsAction'
+import { toggleDateSearch } from '../store/actions/CalendarAction'
+import { addArrayExams, emptyList } from '../store/actions/ExamAction'
 
 
 class SearchExam extends Component {
@@ -21,7 +22,7 @@ class SearchExam extends Component {
             const textData = text.toLowerCase()
             return itemData.indexOf(textData) > -1
         })
-        if(newData.length == 0) {
+        if (newData.length == 0) {
             this.props.emptyList(true)
         } else {
             this.props.emptyList(false)
@@ -48,7 +49,7 @@ class SearchExam extends Component {
 
 const mapStateToProps = state => (
     {
-        showCalendar: state.ExamsReducer.showCalendar,
+        showCalendar: state.CalendarReducer.showCalendar,
         arrayExams: state.ExamsReducer.arrayExams,
         arrayBackupExams: state.ExamsReducer.arrayBackupExams,
         querySearch: state.ExamsReducer.querySearch,

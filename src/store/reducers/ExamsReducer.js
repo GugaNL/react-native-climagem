@@ -1,5 +1,5 @@
 const initialState = {
-    showCalendar: false,
+    // showCalendar: false,
     arrayExams: [],
     arrayBackupExams: [],
     querySearch: '',
@@ -9,11 +9,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'TOGGLE_DATE_SEARCH':
-            return {
-                ...state,
-                showCalendar: action.payload
-            }
+        // case 'TOGGLE_DATE_SEARCH':
+        //     return {
+        //         ...state,
+        //         showCalendar: action.payload
+        //     }
         case 'ADD_ARRAY_EXAMS':
             return {
                 ...state,

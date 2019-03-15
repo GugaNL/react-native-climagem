@@ -6,9 +6,10 @@ import ImagePicker from 'react-native-image-picker'
 import { connect } from 'react-redux'
 import { changeProfilePhoto } from '../store/actions/ProfileAction'
 import { userLoggedOut } from '../store/actions/AuthAction'
-import profileIcon from '../assets/imgs/doctor-icon.png'
 import { Icon } from 'react-native-elements'
 import { changeStatusListView, clearList, listExamsByStatus } from '../store/actions/ExamAction'
+import { toggleDateSearch } from '../store/actions/CalendarAction'
+
 
 
 const options = {
@@ -43,6 +44,7 @@ class Profile extends React.Component {
     }
 
     redirectListExams(status) {
+        if(this.props.showCalendar === true) this.props.toggleDateSearch(false)
         this.props.clearList()
         this.props.listExamsByStatus(status)
         this.props.changeStatusListView(status)
@@ -51,13 +53,24 @@ class Profile extends React.Component {
 
     render() {
 
+        let avatarWindow
+        if (this.props.photo.uri != '') {
+            avatarWindow = <Avatar size='xlarge' rounded title='MD' showEditButton
+                source={this.props.photo}
+                onEditPress={() => this.pickImage()}
+            />
+        } else {
+            avatarWindow = <Avatar size='xlarge' rounded showEditButton
+                icon={{ name: 'user-md', type: 'font-awesome', color: '#6495ED', size: 90 }}
+                onEditPress={() => this.pickImage()}
+            />
+        }
+
         return (
             <View style={styleProfile.container}>
 
-                <Avatar size='xlarge' rounded title='MD' showEditButton
-                    source={this.props.photo.uri == '' ? profileIcon : this.props.photo}
-                    onEditPress={() => this.pickImage()}
-                />
+                {avatarWindow}
+
                 <Text style={{ marginTop: 15, fontWeight: 'bold' }}>Paulo Lucena</Text>
                 <Text>Mastologista</Text>
 
@@ -96,7 +109,8 @@ const mapStateToProps = state => (
         photo: state.ProfileReducer.photo,
         email: state.AuthReducer.email,
         name: state.AuthReducer.name,
-        listExams: state.ExamReducer.listExams
+        listExams: state.ExamReducer.listExams,
+        showCalendar: state.CalendarReducer.showCalendar
     }
 )
 
@@ -107,6 +121,7 @@ const mapDispatchToProps = dispatch => (
         changeStatusListView: status => dispatch(changeStatusListView(status)),
         clearList: () => dispatch(clearList()),
         listExamsByStatus: status => dispatch(listExamsByStatus(status)),
+        toggleDateSearch: value => dispatch(toggleDateSearch(value))
     }
 )
 

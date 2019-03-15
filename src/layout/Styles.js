@@ -60,9 +60,10 @@ export const styleLogin = StyleSheet.create({
         justifyContent: 'center',
     },
     newUserText: {
-        //fontWeight: 'bold'
+        color: '#FFFFFF'
     },
     newUserButtom: {
+        color: '#FFFFFF',
         fontWeight: 'bold',
         marginLeft: 5,
     }
@@ -185,11 +186,11 @@ export const styleListExams = StyleSheet.create({
     },
     list: {
         flex: 2,
-        alignItems: 'center',
+        width: '100%',
         marginTop: 10,
     },
     calendar: {
-        flex: 4,
+        // flex: 4,
         backgroundColor: '#FFFFFF',
         marginTop: 20,
         marginHorizontal: 10,
@@ -202,7 +203,7 @@ export const styleListExams = StyleSheet.create({
         width: 150,
         height: 30,
         borderRadius: 15,
-        marginTop: 25
+        marginBottom: 10
     },
     textButtomSearch: {
         fontWeight: 'bold'
@@ -224,15 +225,14 @@ export const styleListExams = StyleSheet.create({
         borderColor: '#A9A9A9',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 25,
+        marginBottom: 10,
         marginLeft: 20,
     }
 })
 
 export const stylePatient = StyleSheet.create({
     containerTitle: {
-        flex: 1,
-        alignItems: 'center',
+        // flex: 1,
         backgroundColor: '#48D1CC'
     },
     textPatientTitle: {
