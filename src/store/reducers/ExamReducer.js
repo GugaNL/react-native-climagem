@@ -23,12 +23,13 @@ const initialState = {
     listExamsBackup: [],
     resultOperation: null,
     statusListView: null,
-    empty: null
+    empty: null,
+    querySearch: ''
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD_ARRAY_EXAMS': 
+        case 'ADD_ARRAY_EXAMS':
             return {
                 ...state,
                 listExams: action.payload
@@ -70,14 +71,14 @@ export default (state = initialState, action) => {
                 statusListView: action.payload
             }
         case 'SUCESS_LIST_EXAMS':
-        // console.log('listExams: ', action.payload)
+            // console.log('listExams: ', action.payload)
             return {
                 ...state,
                 listExams: action.payload,
                 listExamsBackup: action.payload
             }
         case 'SUCESS_ADD_EXAM':
-        // console.log('Entrou no reducer: ', action.payload)
+            // console.log('Entrou no reducer: ', action.payload)
             return {
                 ...state,
                 resultOperation: action.payload,
@@ -141,6 +142,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 showOverlay: action.payload
+            }
+        case 'CHANGE_QUERY_SEARCH':
+            return {
+                ...state,
+                querySearch: action.payload
             }
         default:
             return state

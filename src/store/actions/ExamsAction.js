@@ -26,16 +26,3 @@ export const changeQuerySearch = value => {
     }
 }
 
-export const changeDateBegin = value => {
-    return {
-        type: 'CHANGE_DATE_BEGIN',
-        payload: value
-    }
-}
-
-export const changeDateEnd = value => {
-    return {
-        type: 'CHANGE_DATE_END',
-        payload: value
-    }
-}

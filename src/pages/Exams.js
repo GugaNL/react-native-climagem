@@ -87,10 +87,9 @@ class Exams extends React.Component {
 const mapStateToProps = state => (
     {
         showCalendar: state.CalendarReducer.showCalendar,
-        arrayExams: state.ExamsReducer.arrayExams,
-        arrayBackupExams: state.ExamsReducer.arrayBackupExams,
-        querySearch: state.ExamsReducer.querySearch,
-        // patient: state.PatientReducer.patient,
+        // arrayExams: state.ExamsReducer.arrayExams,
+        // arrayBackupExams: state.ExamsReducer.arrayBackupExams,
+        // querySearch: state.ExamsReducer.querySearch,
         listExams: state.ExamReducer.listExams,
         examView: state.ExamReducer.examView,
         statusListView: state.ExamReducer.statusListView,

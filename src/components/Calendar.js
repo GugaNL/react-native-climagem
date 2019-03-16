@@ -5,10 +5,8 @@ import { styleListExams } from '../layout/Styles'
 import CalendarPicker from 'react-native-calendar-picker'
 import moment from "moment"
 import { connect } from 'react-redux'
-import { toggleDateSearch, addArrayExams, changeDateBegin, changeDateEnd, addBackupArrayExams } from '../store/actions/ExamsAction'
-import { changeDateExam } from '../store/actions/CalendarAction'
-import { toggleOverlay, changeExam } from '../store/actions/ExamAction'
-import { mockExams } from '../utils/ListUsersMock'
+import { changeDateExam, changeDateBegin, changeDateEnd, toggleDateSearch } from '../store/actions/CalendarAction'
+import { toggleOverlay, changeExam, addArrayExams } from '../store/actions/ExamAction'
 
 
 class Calendar extends Component {
@@ -21,7 +19,7 @@ class Calendar extends Component {
         var dateConvert = moment(date).format("DD-MM-YYYY")
         if (this.props.showButtonClear === false) {
             this.props.changeDateExam(dateConvert)
-            this.props.changeExam(dateConvert, 'date')
+            // this.props.changeExam(dateConvert, 'date')
         }
         if (type === 'START_DATE') {
             if (this.props.dateSearchEnd != null) {
@@ -38,7 +36,7 @@ class Calendar extends Component {
         if (this.props.showButtonClear === false) {
             this.props.toggleOverlay(false)
         } else {
-            var { arrayBackupExams } = this.props
+            var { listExamsBackup } = this.props
             var arraySearch = []
             var dateExam = null
             var checkValue
@@ -47,19 +45,19 @@ class Calendar extends Component {
             } else
                 if (this.props.dateSearchBegin != null && this.props.dateSearchEnd == null) {
                     var begin = moment(this.props.dateSearchBegin, 'DD-MM-YYYY')
-                    for (let i = 0; i < arrayBackupExams.length; i++) {
-                        dateExam = moment(arrayBackupExams[i].date, 'DD-MM-YYYY')
+                    for (let i = 0; i < listExamsBackup.length; i++) {
+                        dateExam = moment(listExamsBackup[i].date, 'DD-MM-YYYY')
                         checkValue = moment(dateExam).isSame(begin)
-                        if (checkValue) arraySearch.push(arrayBackupExams[i])
+                        if (checkValue) arraySearch.push(listExamsBackup[i])
                     }
                     this.props.addArrayExams(arraySearch)
                 } else {
                     var begin = moment(this.props.dateSearchBegin, 'DD-MM-YYYY')
                     var end = moment(this.props.dateSearchEnd, 'DD-MM-YYYY')
-                    for (let i = 0; i < arrayBackupExams.length; i++) {
-                        dateExam = moment(arrayBackupExams[i].date, 'DD-MM-YYYY')
+                    for (let i = 0; i < listExamsBackup.length; i++) {
+                        dateExam = moment(listExamsBackup[i].date, 'DD-MM-YYYY')
                         checkValue = moment(dateExam).isBetween(begin, end)
-                        if (checkValue) arraySearch.push(arrayBackupExams[i])
+                        if (checkValue) arraySearch.push(listExamsBackup[i])
                     }
                     this.props.addArrayExams(arraySearch)
                 }
@@ -67,7 +65,7 @@ class Calendar extends Component {
     }
 
     clearSearch() {
-        this.props.addArrayExams(mockExams)
+        this.props.addArrayExams(this.props.listExamsBackup)
         this.props.toggleDateSearch(false)
     }
 
@@ -103,18 +101,30 @@ class Calendar extends Component {
 
 const mapStateToProps = state => (
     {
-        showCalendar: state.ExamsReducer.showCalendar,
-        arrayExams: state.ExamsReducer.arrayExams,
-        arrayBackupExams: state.ExamsReducer.arrayBackupExams,
-        dateSearchBegin: state.ExamsReducer.dateSearchBegin,
-        dateSearchEnd: state.ExamsReducer.dateSearchEnd,
+        showCalendar: state.CalendarReducer.showCalendar,
+        listExams: state.ExamReducer.listExams,
+        listExamsBackup: state.ExamReducer.listExamsBackup,
+        dateSearchBegin: state.CalendarReducer.dateSearchBegin,
+        dateSearchEnd: state.CalendarReducer.dateSearchEnd,
         showOverlay: state.ExamReducer.showOverlay,
         dateExam: state.CalendarReducer.dateExam,
         exam: state.ExamReducer.exam
     }
 )
 
-export default connect(mapStateToProps, {
-    toggleDateSearch, addArrayExams, addBackupArrayExams, changeDateBegin,
-    changeDateEnd, toggleOverlay, changeExam, changeDateExam
-})(Calendar)
+const mapDispatchToProps = dispatch => (
+    {
+        toggleDateSearch: value => dispatch(toggleDateSearch(value)),
+        changeDateBegin: value => dispatch(changeDateBegin(value)),
+        changeDateEnd: value => dispatch(changeDateEnd(value)),
+        toggleOverlay: value => dispatch(toggleOverlay(value)),
+        changeDateExam: value => dispatch(changeDateExam(value)),
+        addArrayExams: list => dispatch(addArrayExams(list))
+    }
+)
+
+// export default connect(mapStateToProps, {
+//     toggleDateSearch, addArrayExams, addBackupArrayExams, changeDateBegin,
+//     changeDateEnd, toggleOverlay, changeExam, changeDateExam
+// })(Calendar)
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar)
