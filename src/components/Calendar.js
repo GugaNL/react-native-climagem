@@ -51,6 +51,7 @@ class Calendar extends Component {
                         if (checkValue) arraySearch.push(listExamsBackup[i])
                     }
                     this.props.addArrayExams(arraySearch)
+                    this.props.toggleDateSearch(false)
                 } else {
                     var begin = moment(this.props.dateSearchBegin, 'DD-MM-YYYY')
                     var end = moment(this.props.dateSearchEnd, 'DD-MM-YYYY')
@@ -60,6 +61,7 @@ class Calendar extends Component {
                         if (checkValue) arraySearch.push(listExamsBackup[i])
                     }
                     this.props.addArrayExams(arraySearch)
+                    this.props.toggleDateSearch(false)
                 }
         }
     }
@@ -123,8 +125,4 @@ const mapDispatchToProps = dispatch => (
     }
 )
 
-// export default connect(mapStateToProps, {
-//     toggleDateSearch, addArrayExams, addBackupArrayExams, changeDateBegin,
-//     changeDateEnd, toggleOverlay, changeExam, changeDateExam
-// })(Calendar)
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar)
