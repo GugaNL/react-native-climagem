@@ -155,12 +155,14 @@ export const listExamsAxios = () => {
             .then(res => {
                 const rawdata = res.data
                 const listExams = []
+                console.log('rawdata: ', rawdata)
                 for (let key in rawdata) {
                     listExams.push({
                         ...rawdata[key],//Pega o valor de cada key do json, que são os caracteres gerados como id
                         id: key //cria um campo id pra guardar as keys do firebase
                     })
                 }
+                console.log('listExams: ', listExams)
                 if (listExams.length == 0) {
                     dispatch(emptyList(true))
                 } else {

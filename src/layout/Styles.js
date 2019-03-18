@@ -368,7 +368,7 @@ export const styleAddExam = StyleSheet.create({
         borderRadius: 20
     },
     overlay: {
-        height: Dimensions.get('window').height * 2 / 4,
+        // height: Dimensions.get('window').height * 2 / 4,
         width: '95%'
     }
 

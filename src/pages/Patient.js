@@ -31,7 +31,9 @@ class Patient extends Component {
 
   _changeExam() {
     this.props.aproveStatus('confirmado')
-    this.props.aproveExam(this.props.examView)
+    setTimeout(() => {
+      this.props.aproveExam(this.props.examView)
+    }, 1500)
   }
 
   render() {
@@ -56,7 +58,6 @@ class Patient extends Component {
     }
 
     if (this.props.examView.status != 'confirmado') {
-      console.log('vai exebir o botao')
       buttonApprove = <Button buttonStyle={{ marginTop: 10, marginBottom: 10 }} titleStyle={{ marginLeft: 7 }}
         icon={
           <Icon

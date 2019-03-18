@@ -6,7 +6,7 @@ import { styleAddExam } from '../layout/Styles'
 import Calendar from '../components/Calendar'
 import { connect } from 'react-redux'
 import { changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay, addExamAxios } from '../store/actions/ExamAction'
-import {changeDateExam} from '../store/actions/CalendarAction'
+import { changeDateExam } from '../store/actions/CalendarAction'
 import { TextInputMask } from 'react-native-masked-text'
 
 
@@ -15,11 +15,13 @@ import { TextInputMask } from 'react-native-masked-text'
 class AddExam extends Component {
 
     componentDidMount() {
-        console.log('componentDidMount')
+        // console.log('componentDidMount')
     }
 
-     _addExam() {
-        this.props.addExam(this.props.exam)
+    _addExam() {
+        setTimeout(() => {
+            this.props.addExam(this.props.exam)
+        }, 1500)
         this._toggleShowAgreement()
         this.props.changeDateExam(null)
         //  console.log('result: ',this.props.result)
@@ -125,7 +127,7 @@ class AddExam extends Component {
                             <View style={{ flexDirection: 'row', width: 100 }}>
                                 <Text style={styleAddExam.infoPatient}>Idade </Text>
                                 <Input inputContainerStyle={styleAddExam.inputOld}
-                                value={this.props.exam.old}
+                                    value={this.props.exam.old}
                                     inputStyle={{ textAlign: 'center' }}
                                     onChangeText={(text => this.props.changeExam(text, 'old'))} />
                             </View>
@@ -141,32 +143,32 @@ class AddExam extends Component {
                             <Text style={styleAddExam.infoPatient}>Telefone </Text>
 
                             <TextInputMask style={styleAddExam.inputPhone} //type={'custom'} 
-                            value={this.props.exam.phone}
-                            type="cel-phone"
-                            onChangeText={text => this.statePhone(text)}
-                            placeholder='DDD + Número' 
-                            textAlign={'center'}
-                             />
+                                value={this.props.exam.phone}
+                                type="cel-phone"
+                                onChangeText={text => this.statePhone(text)}
+                                placeholder='DDD + Número'
+                                textAlign={'center'}
+                            />
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: 10 }}>
                             <Text style={styleAddExam.infoPatient}>Email </Text>
                             <Input keyboardType='email-address' inputContainerStyle={styleAddExam.inputPhone}
-                            value={this.props.exam.email}
+                                value={this.props.exam.email}
                                 onChangeText={(text => this.props.changeExam(text, 'email'))} />
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: 10 }}>
                             <Text style={styleAddExam.infoPatient}>Endereço </Text>
                             <Input multiline={true} placeholder='Rua/Av Casa/Apto N Quadra' inputContainerStyle={styleAddExam.inputAdress}
-                            value={this.props.exam.address}
+                                value={this.props.exam.address}
                                 inputStyle={{ textAlign: 'center' }}
                                 onChangeText={(text => this.props.changeExam(text, 'address'))} />
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <Text style={styleAddExam.infoPatient}>Cidade </Text>
-                        <Input placeholder='Cidade onde mora'
+                            <Text style={styleAddExam.infoPatient}>Cidade </Text>
+                            <Input placeholder='Cidade onde mora'
                                 inputContainerStyle={styleAddExam.inputCity}
                                 inputStyle={{ textAlign: 'center' }}
                                 value={this.props.exam.city}
@@ -199,7 +201,7 @@ class AddExam extends Component {
 
                         <View style={{ flexDirection: 'row', marginTop: 15 }}>
                             <Text style={styleAddExam.infoPatient}>Observação </Text>
-                            <Input multiline={true} placeholder='Informação' inputContainerStyle={styleAddExam.inputObs}
+                            <Input placeholder='Informação' inputContainerStyle={styleAddExam.inputObs}
                                 inputStyle={{ textAlign: 'center' }}
                                 value={this.props.exam.obs}
                                 onChangeText={(text => this.props.changeExam(text, 'obs'))} />

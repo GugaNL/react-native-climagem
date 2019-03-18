@@ -15,11 +15,15 @@ class Calendar extends Component {
         super(props)
     }
 
+    componentDidMount() {
+        this.props.changeExam(null, 'date')
+    }
+
     onDateChange(date, type) {
         var dateConvert = moment(date).format("DD-MM-YYYY")
         if (this.props.showButtonClear === false) {
             this.props.changeDateExam(dateConvert)
-            // this.props.changeExam(dateConvert, 'date')
+            this.props.changeExam(dateConvert, 'date')
         }
         if (type === 'START_DATE') {
             if (this.props.dateSearchEnd != null) {
@@ -33,8 +37,12 @@ class Calendar extends Component {
     }
 
     calculateInterval() {
-        if (this.props.showButtonClear === false) {
-            this.props.toggleOverlay(false)
+        if (this.props.textButton == 'Confirmar') {
+            if(this.props.exam.date == null) {
+                Alert.alert('Insira um período no calendário')
+            } else {
+                this.props.toggleOverlay(false)
+            }
         } else {
             var { listExamsBackup } = this.props
             var arraySearch = []
@@ -121,7 +129,8 @@ const mapDispatchToProps = dispatch => (
         changeDateEnd: value => dispatch(changeDateEnd(value)),
         toggleOverlay: value => dispatch(toggleOverlay(value)),
         changeDateExam: value => dispatch(changeDateExam(value)),
-        addArrayExams: list => dispatch(addArrayExams(list))
+        addArrayExams: list => dispatch(addArrayExams(list)),
+        changeExam : (value, field) => dispatch(changeExam(value, field))
     }
 )
 
