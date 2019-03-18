@@ -8,15 +8,12 @@ import { connect } from 'react-redux'
 import { changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay, addExamAxios } from '../store/actions/ExamAction'
 import { changeDateExam } from '../store/actions/CalendarAction'
 import { TextInputMask } from 'react-native-masked-text'
+import {typeExams, genre, hours} from '../utils/GlobalConsts'
 
 
 
 
 class AddExam extends Component {
-
-    componentDidMount() {
-        // console.log('componentDidMount')
-    }
 
     _addExam() {
         setTimeout(() => {
@@ -46,26 +43,6 @@ class AddExam extends Component {
     }
 
     render() {
-        let typeExams = [
-            { value: 'Tipo' },
-            { value: 'Mamografia' },
-            { value: 'Abdominal' },
-            { value: 'Gestação' },
-            { value: 'Tireóide' },
-            { value: 'Pélvica' }
-        ]
-
-        let genre = [
-            { value: 'Masculino' },
-            { value: 'Feminino' }
-        ]
-
-        let hours = [
-            { value: '08:30' },
-            { value: '10:30' },
-            { value: '14:30' },
-            { value: '16:00' }
-        ]
 
         let agreementInput
         let price
