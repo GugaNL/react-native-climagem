@@ -9,6 +9,7 @@ import Login from '../pages/Login'
 import NewUser from '../pages/NewUser'
 import Patient from '../pages/Patient'
 import AddExam from '../pages/AddExam'
+import Notifications from '../pages/Notifications'
 import { clearList } from '../store/actions/ExamAction'
 import { connect } from 'react-redux'
 
@@ -67,7 +68,18 @@ const Menus = {
             tabBarOnPress
         }
     },
-
+    Notifications: {
+        name: 'Notifications',
+        screen: Notifications,
+        navigationOptions: {
+            title: 'Avisos',
+            tabBarIcon: ({ tintColor }) =>
+                (<View>
+                    <Icon name='bell-o' size={30} color={tintColor} />
+                    {/* <Badge status='primary' value={3} containerStyle={{ position: 'absolute', top: -4, right: -4 }} /> */}
+                </View>)
+        }
+    },
 }
 
 
