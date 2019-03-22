@@ -57,6 +57,7 @@ export const styleLogin = StyleSheet.create({
         alignSelf: 'center'
     },
     newUser: {
+        marginTop: 15,
         flexDirection: 'row',
         justifyContent: 'center',
     },
