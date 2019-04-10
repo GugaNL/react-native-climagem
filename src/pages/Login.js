@@ -59,19 +59,21 @@ class Login extends React.Component {
                     <Text style={styleLogin.buttomText}>Entrar</Text>
                 </TouchableOpacity>
 
+
+                <View style={styleLogin.newUser}>
+                    <Text style={styleLogin.newUserText}>Novo usuário?</Text>
+                    <TouchableOpacity onPress={() => this.pageNewUser()}>
+                        <Text style={styleLogin.newUserButtom}>Cadastre-se aqui</Text>
+                    </TouchableOpacity>
+                </View>
+                <Text style={styleLogin.orButtom}>ou</Text>
+                
                 <View style={{ alignItems: 'center' }}>
                     <LoginButton
                         onLoginFinished={(error, result) => this.loginFacebook(error, result)}
                         onLogoutFinished={() => console.log("logout do facebook")}
                     />
                 </View>
-                <View style={styleLogin.newUser}>
-                    <Text style={styleLogin.newUserText}>Novo usuário?</Text>
-                    <TouchableOpacity onPress={() => this.pageNewUser()}>
-                        <Text style={styleLogin.newUserButtom}>Acesse aqui</Text>
-                    </TouchableOpacity>
-                </View>
-
             </View>
         )
     }

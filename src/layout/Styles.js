@@ -68,6 +68,14 @@ export const styleLogin = StyleSheet.create({
         color: '#FFFFFF',
         fontWeight: 'bold',
         marginLeft: 5,
+    },
+    orButtom: {
+        color: '#FFFFFF',
+        fontWeight: 'bold',
+        marginLeft: 5,
+        alignSelf: 'center',
+        marginTop: 10,
+        marginBottom: 10
     }
 })
 
@@ -234,7 +242,7 @@ export const styleListExams = StyleSheet.create({
 
 export const stylePatient = StyleSheet.create({
     containerTitle: {
-        // flex: 1,
+         flex: 1,
         backgroundColor: '#48D1CC'
     },
     textPatientTitle: {
@@ -272,7 +280,7 @@ export const stylePatient = StyleSheet.create({
 
 export const styleAddExam = StyleSheet.create({
     containerTitle: {
-        flex: 1,
+        //flex: 1,
         backgroundColor: '#48D1CC'
     },
     textPatientTitle: {
@@ -373,4 +381,28 @@ export const styleAddExam = StyleSheet.create({
         width: '95%'
     }
 
+})
+
+
+export const LoaderStyle = StyleSheet.create({
+    modalBackground: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        backgroundColor: '#00000040'
+      },
+      activityIndicatorWrapper: {
+        backgroundColor: '#FFFFFF',
+        height: 100,
+        width: 100,
+        borderRadius: 10,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+      },
+      textStyle: {
+          color: '#48D1CC',
+          fontWeight: 'bold'
+      }
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { changeEmail, changePassword, changeName, insertUser } from '../store/actions/AuthAction'
 import { styleNewUser } from '../layout/Styles'
@@ -9,8 +9,9 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 class NewUser extends React.Component {
 
     _insertUser() {
-        const { name, email, password } = this.props
-        this.props.insertUser({ name, email, password })
+        Alert.alert('Não disponível na versão beta')
+        // const { name, email, password } = this.props
+        // this.props.insertUser({ name, email, password })
     }
 
     render() {

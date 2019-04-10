@@ -8,21 +8,32 @@ import { connect } from 'react-redux'
 import { changeExam, toggleShowAgreement, toggleShowCalendarExam, toggleOverlay, addExamAxios } from '../store/actions/ExamAction'
 import { changeDateExam } from '../store/actions/CalendarAction'
 import { TextInputMask } from 'react-native-masked-text'
-import {typeExams, genre, hours} from '../utils/GlobalConsts'
+import { typeExams, genre, hours } from '../utils/GlobalConsts'
+import Loader from '../components/Loader'
 
 
 
 
 class AddExam extends Component {
 
+    state = {
+        loading: false
+    }
+
     _addExam() {
-        setTimeout(() => {
-            this.props.addExam(this.props.exam)
-        }, 1500)
-        this._toggleShowAgreement()
-        this.props.changeDateExam(null)
-        //  console.log('result: ',this.props.result)
-        // this.props.result === 'OK' ? Alert.alert('Sucesso', 'O exame foi solicitado') : Alert.alert('Erro na solicitação do exame')
+        if(this.props.exam.name == '' || this.props.exam.email == ''){
+            Alert.alert('Preencha os campos')
+        }else {
+            this.setState({ loading: true })
+            setTimeout(() => {
+                this.props.addExam(this.props.exam)
+                this.setState({ loading: false })
+            }, 1000)
+            this._toggleShowAgreement()
+            this.props.changeDateExam(null)
+            //  console.log('result: ',this.props.result)
+            // this.props.result === 'OK' ? Alert.alert('Sucesso', 'O exame foi solicitado') : Alert.alert('Erro na solicitação do exame')
+        }
     }
 
     _toggleShowAgreement() {
@@ -82,6 +93,7 @@ class AddExam extends Component {
 
         return (
             <View style={styleAddExam.containerTitle}>
+                <Loader loading={this.state.loading} />
                 <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={styleAddExam.textPatientTitle}>
@@ -131,7 +143,7 @@ class AddExam extends Component {
                         <View style={{ flexDirection: 'row', marginTop: 10 }}>
                             <Text style={styleAddExam.infoPatient}>Email </Text>
                             <Input keyboardType='email-address' inputContainerStyle={styleAddExam.inputPhone}
-                                value={this.props.exam.email}
+                                value={this.props.exam.email} autoCapitalize='none'
                                 onChangeText={(text => this.props.changeExam(text, 'email'))} />
                         </View>
 

@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { changeProfilePhoto } from '../store/actions/ProfileAction'
 import { userLoggedOut } from '../store/actions/AuthAction'
 import { Icon } from 'react-native-elements'
-import { changeStatusListView, clearList, listExamsByStatus } from '../store/actions/ExamAction'
+import { changeStatusListView, clearList, listExamsByStatus, emptyList } from '../store/actions/ExamAction'
 import { toggleDateSearch } from '../store/actions/CalendarAction'
 
 
@@ -48,6 +48,16 @@ class Profile extends React.Component {
         this.props.clearList()
         this.props.listExamsByStatus(status)
         this.props.changeStatusListView(status)
+
+        /*console.log('this.props.listExams: ', this.props.listExams)
+        if(this.props.listExams.length == 0) {
+            console.log('entrou no if do length 0')
+            this.props.emptyList(true)
+        } else {
+            console.log('entrou no if do length com algo')
+            this.props.emptyList(false)
+        }*/
+
         this.props.navigation.navigate('Consults')
     }
 
@@ -121,7 +131,8 @@ const mapDispatchToProps = dispatch => (
         changeStatusListView: status => dispatch(changeStatusListView(status)),
         clearList: () => dispatch(clearList()),
         listExamsByStatus: status => dispatch(listExamsByStatus(status)),
-        toggleDateSearch: value => dispatch(toggleDateSearch(value))
+        toggleDateSearch: value => dispatch(toggleDateSearch(value)),
+        emptyList: value => dispatch(emptyList(value))
     }
 )
 

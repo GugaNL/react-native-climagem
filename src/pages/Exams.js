@@ -5,7 +5,7 @@ import SearchExam from '../components/SearchExam'
 import Calendar from '../components/Calendar'
 import { styleListExams } from '../layout/Styles'
 import { connect } from 'react-redux'
-import { listExamsAxios, viewExam, listExamsByStatus, changeStatusListView } from '../store/actions/ExamAction'
+import { listExamsAxios, viewExam, listExamsByStatus, changeStatusListView, emptyList } from '../store/actions/ExamAction'
 import { toggleDateSearch } from '../store/actions/CalendarAction'
 import EmptyResult from '../components/EmptyResult'
 
@@ -17,21 +17,23 @@ class Exams extends React.Component {
         animating: true,
     }
 
-    async componentDidMount() {
+     componentDidMount() {
+      console.log('this.props.listExams didmount: ', this.props.listExams)
         if (this.props.showCalendar === true) this.props.toggleDateSearch(false)
         if (this.props.statusListView == null) {
             setTimeout(() => {
                 this.props.listExamsAxios()
                 this.setState({ animating: false })
-                if (this.props.listExams.length == 0) {
-                    this.setState({ empty: true })
-                }
+                // if (this.props.listExams.length == 0) {
+                //     this.props.emptyList(true)
+                // }
             }, 2000)
         } else {
             setTimeout(() => {
                 this.setState({ animating: false })
             }, 1500)
         }
+
     }
 
 
@@ -47,13 +49,14 @@ class Exams extends React.Component {
     }
 
     render() {
-
+        // console.log('render listExams: ', this.props.listExams)
         let calendar
         if (this.props.showCalendar === true) {
             calendar = <Calendar textButton='Pesquisar' rangeValue={true} showButtonClear={true} />
         }
 
         let messageEmptyResult
+        // console.log('empty: ', this.props.empty)
         if (this.props.empty == true) {
             messageEmptyResult = <EmptyResult />
         }
@@ -102,7 +105,8 @@ const mapDispatchToProps = dispatch => ({
     loadExam: exam => dispatch(viewExam(exam)),
     examsByStatus: status => dispatch(listExamsByStatus(status)),
     changeStatusListView: status => dispatch(changeStatusListView(status)),
-    toggleDateSearch: value => dispatch(toggleDateSearch(value))
+    toggleDateSearch: value => dispatch(toggleDateSearch(value)),
+    emptyList: value => dispatch(emptyList(value))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Exams)

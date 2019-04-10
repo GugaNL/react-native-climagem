@@ -100,7 +100,7 @@ export const addExamAxios = exam => {
     return dispatch => {
         axios.post('/exames.json', { ...exam })
             .then(() => {
-                Alert.alert('Sua consulta foi solicitada com sucesso')
+                Alert.alert('Sua consulta foi solicitada com sucesso, você receberá um email de confirmação')
                 dispatch(sucessAddExam('OK'))
             })
             .catch(error => {
@@ -150,19 +150,17 @@ export const updateExamAxios = exam => {
 
 
 export const listExamsAxios = () => {
-    return dispatch => {
-        axios.get('/exames.json')
+    return (dispatch) => {
+         axios.get('/exames.json')
             .then(res => {
                 const rawdata = res.data
                 const listExams = []
-                console.log('rawdata: ', rawdata)
                 for (let key in rawdata) {
                     listExams.push({
                         ...rawdata[key],//Pega o valor de cada key do json, que são os caracteres gerados como id
                         id: key //cria um campo id pra guardar as keys do firebase
                     })
                 }
-                console.log('listExams: ', listExams)
                 if (listExams.length == 0) {
                     dispatch(emptyList(true))
                 } else {
@@ -204,6 +202,8 @@ export const listExamsByStatus = status => {
                 }
                 dispatch(sucessListExams(listExams))
             })
+        
+
     }
 }
 
