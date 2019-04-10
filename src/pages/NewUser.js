@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 class NewUser extends React.Component {
 
     _insertUser() {
-        Alert.alert('Não disponível na versão beta')
+        Alert.alert('Não disponível na versão de demonstração')
         // const { name, email, password } = this.props
         // this.props.insertUser({ name, email, password })
     }

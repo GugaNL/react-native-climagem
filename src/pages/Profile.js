@@ -24,12 +24,14 @@ class Profile extends React.Component {
     pickImage() {
         ImagePicker.showImagePicker(options, (response) => {
             if (!response.didCancel) {
-                this.props.changePhoto(
-                    {
-                        image: { uri: response.uri, base64: response.data }
-                    }
-                )
-                this.saveProfilePhoto()
+                Alert.alert('Não disponível para versão de demonstração')
+                // this.props.changePhoto(
+                //     {
+                //         image: { uri: response.uri, base64: response.data }
+                //     }
+                // )
+                // this.saveProfilePhoto()
+
             }
         })
     }
