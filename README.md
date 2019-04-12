@@ -1,0 +1,8 @@
+# react-native-climagem
+App mobile para agendamento clínico, usando como front React Native e Redux e no backend o Firebase
+
+Observações: App ainda não finalizado. A função de login por facebook funcionando por enquanto apenas em dispositivos IOS.
+Ainda será feita uma visão diferente entre médico e paciente.
+
+
+
